@@ -30,7 +30,10 @@ class Simulator:
     waiting for design
     """
 
-    def __init__(self, cluster, json_dir, user_number):
+    def __init__(self, cluster, data_dir, XXXX):
+        """
+        waiting for design
+        """
         self.cluster = cluster
         self.log = Log()
         self.json_dir = json_dir
@@ -40,7 +43,7 @@ class Simulator:
         self.event_queue = Q.PriorityQueue()
         self.timestamp = 0
         self.user_number = user_number
-        self.total_machine_type = 1
+        self.machine_type = machine_type
         # self.app_map = OrderedDict()  # map from user id to app id
         self.job_durations = {}
         self.stage_durations = {}
@@ -64,12 +67,12 @@ class Simulator:
             runtime_path = "Workloads/runtime.json"
             self.runtime_profile = json.load(
                 open(runtime_path, 'r'), object_pairs_hook=OrderedDict)
-            print "runtime_profile loaded"
+            print("runtime_profile loaded")
 
             job_path = "Workloads/job.json"
             self.job_profile = json.load(
                 open(job_path, 'r'), object_pairs_hook=OrderedDict)
-            print "job_profile loaded"
+            print("job_profile loaded")
             self.generate_job_profile(user_index)
 
     def run(self):
@@ -83,7 +86,7 @@ class Simulator:
         current_job_index = dict()
         # map from user-id to its current running job index
 
-        # This code segment shall be modified.
+        # This code segment shall be modified by xiandong.
         # Initially all the jobs shall be submitted. 全部的job 和 event 都被添加
         for user_index in range(0, self.user_number):
             current_job_index[user_index] = 0
@@ -294,7 +297,7 @@ class Simulator:
         job_curveString = dict()
         job_monopolize_time = dict()
         job_accelerate_factor = dict()
-        print "enter generate_job_profile step"
+        print("begin generate_job_profile step")
 
         for c_job_id in self.job_profile:
             # temporary setting
