@@ -6,7 +6,7 @@ from machine import Machine
 DEBUG = False
 
 
-class Cluster:
+class Cluster(object):
 
     def __init__(self, machines):
         # the input machines is a "dict" {type: machine_number,  }

@@ -24,7 +24,7 @@ except ImportError:
     import queue as Q
 
 
-class Simulator:
+class Simulator(object):
     """
     waiting for design by xiandong
     """

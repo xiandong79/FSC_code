@@ -1,7 +1,7 @@
 from slot import slot
 
 
-class Machine:
+class Machine(object):
 
     def __init__(self, id, slot_per_machine):
         self.id = id
