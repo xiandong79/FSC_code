@@ -3,9 +3,9 @@ from slot import slot
 
 class Machine:
 
-    def __init__(self, id, slot_number):
+    def __init__(self, id, slot_per_machine):
         self.id = id
-        self.slot_number = slot_number
+        self.slot_number = slot_per_machine
         self.slots = [slot() for i in range(1, slot_number + 1)]
         self.is_vacant = True
 

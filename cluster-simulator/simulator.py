@@ -7,7 +7,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import collections
 
-from block import Block
 
 from job import Job
 from stage import Stage
@@ -27,12 +26,12 @@ except ImportError:
 
 class Simulator:
     """
-    waiting for design
+    waiting for design by xiandong
     """
 
-    def __init__(self, cluster, data_dir, XXXX):
+    def __init__(self, cluster, input_data_dir, user_number, machine_type):
         """
-        waiting for design
+        waiting for design by xiandong
         """
         self.cluster = cluster
         self.log = Log()
@@ -54,26 +53,25 @@ class Simulator:
         # 1. job
         # 2. stage
         # 3. task runtime (duration)
-        for user_index in range(0, user_number):
-            application_number = user_index + 1
-            application_name = Simulator.application[application_number]
-            self.app_map[user_index] = application_number
+        """
+        load the input data
+        """
+        stage_profile_path = "Workloads/stage_profile.json"
+        self.stage_profile = json.load(
+            open(stage_profile_path, 'r'), object_pairs_hook=OrderedDict)
+        print("stage_profile loaded")
 
-            stage_profile_path = "Workloads/stage_profile.json"
-            self.stage_profile = json.load(
-                open(stage_profile_path, 'r'), object_pairs_hook=OrderedDict)
-            print("stage_profile loaded")
+        runtime_path = "Workloads/runtime.json"
+        self.runtime_profile = json.load(
+            open(runtime_path, 'r'), object_pairs_hook=OrderedDict)
+        print("runtime_profile loaded")
 
-            runtime_path = "Workloads/runtime.json"
-            self.runtime_profile = json.load(
-                open(runtime_path, 'r'), object_pairs_hook=OrderedDict)
-            print("runtime_profile loaded")
+        job_path = "Workloads/job.json"
+        self.job_profile = json.load(
+            open(job_path, 'r'), object_pairs_hook=OrderedDict)
+        print("job_profile loaded")
 
-            job_path = "Workloads/job.json"
-            self.job_profile = json.load(
-                open(job_path, 'r'), object_pairs_hook=OrderedDict)
-            print("job_profile loaded")
-            self.generate_job_profile(user_index)
+        self.generate_job_profile(user_index)
 
     def run(self):
         """
