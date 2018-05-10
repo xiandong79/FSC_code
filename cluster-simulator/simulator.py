@@ -29,49 +29,120 @@ class Simulator(object):
     waiting for design by xiandong
     """
 
-    def __init__(self, cluster, input_data_dir, user_number, machine_type):
+    def __init__(self, cluster, users, input_data_dir, user_number, machine_type):
         """
         waiting for design by xiandong
         """
         self.cluster = cluster
-        self.log = Log()
-        self.json_dir = json_dir
-        self.cluster = cluster
+        self.users = users  # add by xiandong
+        self.json_dir = input_data_dir
         self.scheduler = Scheduler(cluster)
-        self.job_list = list()  # list of lists. A job list for each user.
+        self.job_list = list()  # list of lists. A job list for each user. by xiandong
         self.event_queue = Q.PriorityQueue()
         self.timestamp = 0
         self.user_number = user_number
         self.machine_type = machine_type
-        # self.app_map = OrderedDict()  # map from user id to app id
         self.job_durations = {}
         self.stage_durations = {}
+        self.log = Log()
         self.job_execution_profile = {}  # record the execution information of jobs
 
-        # need rewrite by xiandong
-        # read "input data" which including:
-        # 1. job
-        # 2. stage
-        # 3. task runtime (duration)
         """
         load the input data
         """
-        stage_profile_path = "Workloads/stage_profile.json"
+        stage_profile_path = input_data_dir + "Workloads/stage_profile.json"
         self.stage_profile = json.load(
             open(stage_profile_path, 'r'), object_pairs_hook=OrderedDict)
         print("stage_profile loaded")
 
-        runtime_path = "Workloads/runtime.json"
+        runtime_path = input_data_dir + "Workloads/runtime.json"
         self.runtime_profile = json.load(
             open(runtime_path, 'r'), object_pairs_hook=OrderedDict)
         print("runtime_profile loaded")
 
-        job_path = "Workloads/job.json"
+        job_profile_path = input_data_dir + "Workloads/job_profile.json"
         self.job_profile = json.load(
-            open(job_path, 'r'), object_pairs_hook=OrderedDict)
+            open(job_profile_path, 'r'), object_pairs_hook=OrderedDict)
         print("job_profile loaded")
 
-        self.generate_job_profile(user_index)
+        self.generate_job_profile()
+
+    def generate_job_profile(self):
+        # generate_job_profile(self, user_id): modified by xiandong
+        """
+        load the input data
+        """
+        self.job_list.append(list())
+        task_id = 0
+        job_submit_time = dict()
+        job_priority = dict()
+        print("begin generate_job_profile step")
+
+        for c_job_id in self.job_profile:
+            # temporary setting
+            job_submit_time[int(c_job_id)
+                            ] = self.job_profile[c_job_id]["Submit Time"]
+
+        for stage_id in self.stage_profile:
+            timeout_type = 0
+            job_id = self.stage_profile[stage_id]["Job ID"]
+            self.job_durations[job_id] = 0
+            Job_id = 'user_%s_job_%s' % (user_id, job_id)
+            Stage_id = 'user_%s_stage_%s' % (user_id, stage_id)
+            task_number = self.stage_profile[stage_id]["Task Number"]
+
+            # generate taskset of the stage
+            taskset = list()
+            max_time = 0
+            for i in range(0, task_number):
+                runtime = self.search_runtime(stage_id, i)
+                if runtime > max_time:
+                    max_time = runtime
+                Task_id = 'user_%s_task_%s' % (user_id, task_id)
+                time_out = 0
+                if timeout_type == 0:
+                    task = Task(Job_id, Stage_id, Task_id, i,
+                                runtime, time_out, job_priority[job_id])
+                else:
+                    # task = Task(Job_id, Stage_id, Task_id, i, runtime, 3000, job_priority[job_id])
+                    task = Task(Job_id, Stage_id, Task_id, i,
+                                runtime, time_out, job_priority[job_id])
+                task_id += 1
+                task.user_id = user_id
+                taskset.append(task)
+            stage = Stage(Job_id, Stage_id, Parent_ids, taskset)
+
+            self.scheduler.stageIdToStage[Stage_id] = stage
+            for task in taskset:
+                task.stage = stage
+            stage.user_id = user_id
+
+            if self.search_job_by_id(Job_id, user_id) == False:
+                job = Job(Job_id)
+                job.index = int(job_id)
+                job.user_id = user_id
+                job.stages.append(stage)
+                job.submit_time = job_submit_time[job_id]
+                self.job_list[user_id].append(job)
+                stage.job = job
+            else:  # this job already exits
+                job = self.search_job_by_id(Job_id, user_id)
+                job.stages.append(stage)
+                stage.job = job
+
+        # Set the not_completed_stage_ids for all the jobs
+        for job in self.job_list[user_id]:
+            job.not_completed_stage_ids = [stage.id for stage in job.stages]
+            for tstage in job.stages:
+                job.stagesDict[tstage.id] = tstage
+            job.submitted_stage_ids = list()
+            job.completed_stage_ids = list()
+
+        # this part shall be changed, sort by the submission time of a job
+        self.job_list[user_id] = sorted(
+            self.job_list[user_id], key=lambda job: job.index)  # sort job_list by job_index
+        print("finish generate job profile")
+        print("0: tasknumber:", len(self.job_list[0][0].stages[0].taskset))
 
     def run(self):
         """
@@ -89,10 +160,6 @@ class Simulator(object):
         for user_index in range(0, self.user_number):
             current_job_index[user_index] = 0
             for job_i in range(len(self.job_list[user_index])):
-                if self.job_list[user_index][job_i].index > 8000 and self.job_list[user_index][job_i].index < 8000:
-                    continue
-                if self.job_list[user_index][job_i].index % 100000 > 10001:
-                    continue
                 self.event_queue.put(EventJobSubmit(
                     self.job_list[user_index][job_i].submit_time, self.job_list[user_index][job_i]))
                 # event_queue is a PriorityQueue in python3
@@ -149,7 +216,8 @@ class Simulator(object):
             elif isinstance(event, EventTaskSubmit):
                 event.task.start_time = event.time
                 if self.cluster.isDebug:
-                    print "time", event.time, " submit task ", event.task.id, "-job-", event.task.job_id, "-slot-", event.task.machine_id
+                    print("time", event.time, " submit task ", event.task.id,
+                          "-job-", event.task.job_id, "-slot-", event.task.machine_id)
                 if len(event.task.stage.not_submitted_tasks) == 0:
                     event.task.stage.last_task_submit_time = event.time
                 continue
@@ -157,7 +225,8 @@ class Simulator(object):
             elif isinstance(event, EventTaskComplete):
                 event.task.finish_time = event.time
                 if self.cluster.isDebug:
-                    print "time", event.time, "   finish task ", event.task.id, "-job-", event.task.job_id, "-slot-", event.task.machine_id
+                    print("time", event.time, "   finish task ", event.task.id,
+                          "-job-", event.task.job_id, "-slot-", event.task.machine_id)
                 if event.task.has_completed:
                     continue
                 event.task.has_completed = True
@@ -198,7 +267,6 @@ class Simulator(object):
                     event.stage.taskset)
                 self.stage_durations[event.stage.id]["used slot num"] = len(
                     stageSlots)
-                self.stage_durations[event.stage.id]["monopolize"] = event.stage.monopolize_time
                 self.stage_durations[event.stage.id]["duration"] = event.stage.finish_time - \
                     event.stage.submit_time
 
@@ -216,9 +284,9 @@ class Simulator(object):
                 event.job.duration = event.time - event.job.submit_time
                 event.job.execution_time = event.time - event.job.start_execution_time
                 print("-", event.job.id, " (job) finishes, duration", event.job.duration, " job.alloc ",
-                      event.job.alloc, "PR:", float(event.job.monopolize_time) / event.job.execution_time)
+                      event.job.alloc)
                 print("")  # get an empty line
-#                print("Current idle machine number: ", len(self.cluster.make_offers()), "open machine number:", self.cluster.open_machine_number)
+                # print("Current idle machine number: ", len(self.cluster.make_offers()), "open machine number:", self.cluster.open_machine_number)
 
                 self.scheduler.handle_job_completion(event.job)
                 self.job_durations[int(event.job.id.split(
@@ -238,7 +306,7 @@ class Simulator(object):
 
         # 整个进程结束，开始收集信息 in simulator.run()
         fname = "ExecutionResult/" + \
-            str(self.cluster.machine_number) + "_" + ".json"
+            str(self.cluster.num_machine) + "_" + ".json"
 
         f = open(fname, 'w')
         json.dump(self.job_execution_profile, f, indent=2, sort_keys=True)
@@ -285,87 +353,6 @@ class Simulator(object):
             plt.gcf().subplots_adjust(bottom=0.2)
             fig.savefig("foo.pdf")
         return [runtime]
-
-    def generate_job_profile(self, user_id):
-        self.job_list.append(list())
-        task_id = 0
-        job_submit_time = dict()
-        job_priority = dict()
-        job_service_type = dict()
-        job_curveString = dict()
-        job_monopolize_time = dict()
-        job_accelerate_factor = dict()
-        print("begin generate_job_profile step")
-
-        for c_job_id in self.job_profile:
-            # temporary setting
-            job_submit_time[int(c_job_id)
-                            ] = self.job_profile[c_job_id]["Submit Time"]
-
-        for stage_id in self.stage_profile:
-            timeout_type = 0
-            job_id = self.stage_profile[stage_id]["Job ID"]
-            self.job_durations[job_id] = 0
-            Job_id = 'user_%s_job_%s' % (user_id, job_id)
-            Stage_id = 'user_%s_stage_%s' % (user_id, stage_id)
-            task_number = self.stage_profile[stage_id]["Task Number"]
-
-            # generate taskset of the stage
-            taskset = list()
-            max_time = 0
-            for i in range(0, task_number):
-                runtime = self.search_runtime(stage_id, i)
-                if job_service_type[job_id] <> 0:
-                    runtime *= 1
-                else:
-                    runtime *= 1
-                if runtime > max_time:
-                    max_time = runtime
-                Task_id = 'user_%s_task_%s' % (user_id, task_id)
-                time_out = 0
-                if timeout_type == 0:
-                    task = Task(Job_id, Stage_id, Task_id, i,
-                                runtime, time_out, job_priority[job_id])
-                else:
-                    # task = Task(Job_id, Stage_id, Task_id, i, runtime, 3000, job_priority[job_id])
-                    task = Task(Job_id, Stage_id, Task_id, i,
-                                runtime, time_out, job_priority[job_id])
-                task_id += 1
-                task.user_id = user_id
-                taskset.append(task)
-            stage = Stage(Job_id, Stage_id, Parent_ids, taskset)
-
-            self.scheduler.stageIdToStage[Stage_id] = stage
-            for task in taskset:
-                task.stage = stage
-            stage.user_id = user_id
-
-            if self.search_job_by_id(Job_id, user_id) == False:
-                job = Job(Job_id)
-                job.index = int(job_id)
-                job.user_id = user_id
-                job.stages.append(stage)
-                job.submit_time = job_submit_time[job_id]
-                self.job_list[user_id].append(job)
-                stage.job = job
-            else:  # this job already exits
-                job = self.search_job_by_id(Job_id, user_id)
-                job.stages.append(stage)
-                stage.job = job
-
-        # Set the not_completed_stage_ids for all the jobs
-        for job in self.job_list[user_id]:
-            job.not_completed_stage_ids = [stage.id for stage in job.stages]
-            for tstage in job.stages:
-                job.stagesDict[tstage.id] = tstage
-            job.submitted_stage_ids = list()
-            job.completed_stage_ids = list()
-
-        # this part shall be changed, sort by the submission time of a job
-        self.job_list[user_id] = sorted(
-            self.job_list[user_id], key=lambda job: job.index)  # sort job_list by job_index
-        print "finish generate job profile"
-        print "0: tasknumber:", len(self.job_list[0][0].stages[0].taskset)
 
     def search_runtime(self, stage_id, task_index):
         return self.runtime_profile[str(stage_id)][str(task_index)]['runtime']

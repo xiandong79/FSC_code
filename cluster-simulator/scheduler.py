@@ -131,7 +131,7 @@ class Scheduler:
         # xiandong: parent_ids 相关的 DAG信息+操作，是不是也可以完全删除。
         if len(stage.parent_ids) == 0:
             self.stageIdToAllowedMachineId[stage.id] = range(
-                self.cluster.machine_number)
+                self.cluster.num_machine)
         else:
             tmpList = list()
             for id in stage.parent_ids:
@@ -175,7 +175,8 @@ class Scheduler:
         # need re-design
         machinelist = [task.machine_id for task in stage.taskset]
         machinelist = list(set(machinelist))
-        print "stage complete:", stage.id, "stage tasknum:", len(stage.taskset), "used machine number:", len(machinelist)
+        print("stage complete:", stage.id, "stage tasknum:", len(
+            stage.taskset), "used machine number:", len(machinelist))
         return msg
 
     def handle_job_completion(self, job):

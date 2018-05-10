@@ -1,10 +1,6 @@
-import sys
-import os
-import json
 import numpy as np
-import collections
-from collections import OrderedDict
 
+from user import User
 from machine import Machine
 from cluster import Cluster
 from simulator import Simulator
@@ -44,18 +40,22 @@ for i in range(num_machine):
 load the input data (job, stage, runtime)
 """
 
-input_data_dir = "./Users/dong/Dropbox/Soft-Constraints/Code_Experiment/"
+input_data_dir = "/Users/dong/Dropbox/Soft-Constraints/Code_Experiment/cluster-simulator/"
 
 """
 waiting for design by xiandong
-# machines is a dict, but how to 'instance' each machine into a 'Machine' class(object).
+1. how connect User/job class to user_ownership and preference_value
 """
 machines = [Machine(i, slot_per_machine[i])
-            for i in range(0, num_machine)]
+            for i in range(num_machine)]
+
+users = [User(i, user_ownership[i], preference_value[i])
+         for i in range(num_user)]
+print("test")
 
 cluster = Cluster(machines)
 
-simulator = Simulator(cluster, input_data_dir, num_user, num_machine)
+simulator = Simulator(cluster, users, input_data_dir, num_user, num_machine)
 
 
 simulator.run()

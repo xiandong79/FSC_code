@@ -15,7 +15,6 @@ class Stage:
         self.submit_time = 0
         self.last_task_submit_time = 0
         self.finish_time = 0
-        self.monopolize_time = 0
         # unfinished, for locality maintaining.
         self.job = None
         self.has_done_speculation = False

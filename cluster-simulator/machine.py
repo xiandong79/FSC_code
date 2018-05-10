@@ -6,7 +6,7 @@ class Machine(object):
     def __init__(self, id, slot_per_machine):
         self.id = id
         self.slot_number = slot_per_machine
-        self.slots = [slot() for i in range(1, slot_number + 1)]
+        self.slots = [slot() for i in range(slot_per_machine)]
         self.is_vacant = True
 
     def assign_task(self, task):
