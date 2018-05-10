@@ -19,6 +19,7 @@ for i in range(len(d)):
     stage_profile[stage_id]["Task Number"] = int(tmp[3])
     stage_profile[stage_id]["Job ID"] = stage_id
     stage_profile[stage_id]["Parents"] = []
+    # job_id = self.stage_profile[stage_id]["Job ID"]
     # we do not have "task correlation" in trace/job info
 
     job_id = i
