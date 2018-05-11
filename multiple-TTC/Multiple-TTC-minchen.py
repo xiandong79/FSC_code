@@ -110,12 +110,10 @@ def getCycle(G, starting, subagents):
 
 def delete_vertex(vertex, G):
     if type(vertex) is Vertex:
-        print(vertex)
         vertex = vertex.vertexId
 
     involvedEdges = G[vertex].outgoingEdges | G[vertex].incomingEdges
     for (u, v) in involvedEdges:
-        print("remove edge: ", (u, v))
         G[v].incomingEdges.remove((u, v))
         G[u].outgoingEdges.remove((u, v))
         del G.edges[(u, v)]
@@ -126,8 +124,7 @@ def delete_vertex(vertex, G):
 def delete_house(houses, subagents, G):
     for v in list(G.vertices.keys()):
         if v in houses and G[v].outdegree() == 0:
-            print("the house be deleted is: {} ".format(v))
-            print('ATTENTION!!!!! delete house: ', v)
+            print('delete house', v)
             delete_vertex(v, G)
 
 
@@ -151,11 +148,14 @@ def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership
             if n > 0:
                 G.addEdge(t, k, int(n))
 
-    # 5->c5:30, c5->1:inf
-    print("the initial graph 'G' contains: {}".format(G))
-
     # iteratively remove top trading cycles
     allocation = dict()
+
+    def add_to_allocation(a, h, c): 
+        if a in allocation:
+            allocation[a][h] = c + allocation[a][h] if h in allocation[a] else c
+        else:
+            allocation[a] = {h : c} 
 
     while len(G.vertices) > 0:
         print("")
@@ -165,15 +165,14 @@ def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership
         cycle = getCycle(G, starting, subagents)
 
         if len(cycle.vertices) == 2:
-            print("Now, we have a cycle to 'delete': {}".format(cycle.vertices))
-            allocation[cycle.vertices[1].vertexId] = {
-                cycle.vertices[0].vertexId: cycle.edges_capacity[0]}
+            print("Now, we have a cycle to 'delete': {}".format(cycle))
+            add_to_allocation(cycle.vertices[1].vertexId, cycle.vertices[0].vertexId, cycle.edges_capacity[0])
             for vertex in cycle.vertices:
                 if vertex.vertexId in subagents:
                     delete_vertex(vertex, G)
 
         elif len(cycle.vertices) > 2:
-            print("Now, we have a cycle to 'trade': {}".format(cycle.vertices))
+            print("Now, we have a cycle to 'trade': {}".format(cycle))
             transaction = cycle.get_min_capacity()
             agents_trade = cycle.vertices[1::2]
             house_trade = cycle.vertices[::2]
@@ -181,11 +180,7 @@ def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership
             for index in range(len(agents_trade)):
                 # update allocation
                 h = agents_trade[index].anyNext().vertexId
-                if agents_trade[index].vertexId in allocation:
-                    allocation[agents_trade[index].vertexId][h] = allocation[agents_trade[index].vertexId][h] + transaction \
-                    if h in allocation[agents_trade[index].vertexId] else transaction
-                else:
-                    allocation[agents_trade[index].vertexId] = {h : transaction}
+                add_to_allocation(agents_trade[index].vertexId, h, transaction)
                     
                 for source_target, capacity in list(G.edges.items()):
                     if source_target[0] == house_trade[index].vertexId and source_target[1] == agents_trade[index].vertexId:
@@ -274,7 +269,7 @@ if __name__ == "__main__":
     initialOwnership = {
         'a': {1: 10, 2: 0, 3: 0},
         'b': {1: 0, 2: 10, 3: 0},
-        'c': {1: 0, 2: 0, 3: 5}
+        'c': {1: 0, 2: 0, 3: 15}
     }
 
     # before TTC: {'b2': {2: 0}, 'b1': {1: 10}, 'a2': {2: 20}, 'c2': {2: 0}, 'a1': {1: 0}, 'c1': {1: 10}}
