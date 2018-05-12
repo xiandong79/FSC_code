@@ -124,6 +124,7 @@ def delete_vertex(vertex, G):
 def delete_house(houses, subagents, G):
     for v in list(G.vertices.keys()):
         if v in houses and G[v].outdegree() == 0:
+            print("delete house: ", v)
             delete_vertex(v, G)
 
 
@@ -150,19 +151,30 @@ def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership
     # iteratively remove top trading cycles
     allocation = dict()
 
+    def add_to_allocation(a, h, c):
+        if a in allocation:
+            allocation[a][h] = c + \
+                allocation[a][h] if h in allocation[a] else c
+        else:
+            allocation[a] = {h: c}
+
     while len(G.vertices) > 0:
+        print("")
+        print("A 'new' round, the current number of vertex in G: ", len(G.vertices))
 
         starting = anyCycle(G)  # a vertex
         cycle = getCycle(G, starting, subagents)
 
         if len(cycle.vertices) == 2:
-            allocation[cycle.vertices[1].vertexId] = {
-                cycle.vertices[0].vertexId: cycle.edges_capacity[0]}
+            print("Now, we have a cycle to 'delete': {}".format(cycle))
+            add_to_allocation(
+                cycle.vertices[1].vertexId, cycle.vertices[0].vertexId, cycle.edges_capacity[0])
             for vertex in cycle.vertices:
                 if vertex.vertexId in subagents:
                     delete_vertex(vertex, G)
 
         elif len(cycle.vertices) > 2:
+            print("Now, we have a cycle to 'trade': {}".format(cycle))
             transaction = cycle.get_min_capacity()
             agents_trade = cycle.vertices[1::2]
             house_trade = cycle.vertices[::2]
@@ -170,16 +182,15 @@ def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership
             for index in range(len(agents_trade)):
                 # update allocation
                 h = agents_trade[index].anyNext().vertexId
-                if agents_trade[index].vertexId in allocation:
-                    allocation[agents_trade[index].vertexId][h] += transaction if h in allocation[agents_trade[index].vertexId] else transaction
-                else:
-                    allocation[agents_trade[index].vertexId] = {h: transaction}
+                add_to_allocation(agents_trade[index].vertexId, h, transaction)
 
                 for source_target, capacity in list(G.edges.items()):
                     if source_target[0] == house_trade[index].vertexId and source_target[1] == agents_trade[index].vertexId:
                         capacity -= transaction
                         G.edges[source_target] = capacity
                         if capacity == 0:
+                            print("delete_vertex because its capacity is 0: {}".format(
+                                agents_trade[index]))
                             delete_vertex(agents_trade[index], G)
 
         delete_house(houses, subagents, G)
@@ -191,9 +202,6 @@ def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership
                 break
         if all_house_deleted:
             break
-
-        # if len(filter(lambda v : v in houses, G.vertices.keys())) == 0:
-        #     break
 
         for a in subagents:
             if a in G.vertices and G[a].outdegree() == 0:
@@ -231,40 +239,69 @@ if __name__ == "__main__":
     # }
 
     # integers are houses, chars are agents
-    agents = {'a', 'b'}
-    houses = {1, 2}
-
-    agentPreferences = {
-        'a': [2, 1],
-        'b': [1, 2]
-    }
-
-    # agent "a" has the ownship of "house-type-1" with amount "20", and so on.
-    initialOwnership = {
-        'a': {1: 20, 2: 10},
-        'b': {1: 10, 2: 20}
-    }
-
-    # integers are houses, chars are agents
-    # agents = {'a', 'b', 'c'}
+    # agents = {'a', 'b'}
     # houses = {1, 2}
 
     # agentPreferences = {
-    #     'a': [1, 2],
-    #     'b': [2, 1],
-    #     'c': [2, 1]
+    #     'a': [2, 1],
+    #     'b': [1, 2]
+    # }
+
+    # # agent "a" has the ownship of "house-type-1" with amount "20", and so on.
+    # initialOwnership = {
+    #     'a': {1: 20, 2: 10},
+    #     'b': {1: 10, 2: 20}
+    # }
+
+    # integers are houses, chars are agents
+    # agents = {'a', 'b', 'c'}
+    # houses = {1, 2, 3}
+
+    # agentPreferences = {
+    #     'a': [2, 3, 1],
+    #     'b': [3, 1, 2],
+    #     'c': [1, 2, 3]
     # }
 
     # # agent "a" has the ownship of "house-type-2" with amount "20", and so on.
     # initialOwnership = {
-    #     'a': {1: 0, 2: 20},
-    #     'b': {1: 10, 2: 0},
-    #     'c': {1: 10, 2: 0},
+    #     'a': {1: 10, 2: 0, 3: 0},
+    #     'b': {1: 0, 2: 10, 3: 0},
+    #     'c': {1: 0, 2: 0, 3: 5}
+    # }
+    # # 'c': {1: 0, 2: 0, 3: 5}
+
+    # agents = {'a', 'b', 'c'}
+    # houses = {1, 2, 3}
+
+    # agentPreferences = {
+    #     'a': [2, 3, 1],
+    #     'b': [3, 1, 2],
+    #     'c': [1, 2, 3]
     # }
 
-    # before TTC: {'b2': {2: 0}, 'b1': {1: 10}, 'a2': {2: 20}, 'c2': {2: 0}, 'a1': {1: 0}, 'c1': {1: 10}}
-    # current result: {'b1': {2: 10}, 'a2': {2: 20}, 'c1': {2: 10}}
-    # standard result: {'b2': {2: 10}, 'a1': {1: 20}, 'c2': {2: 10}}
+    # # agent "a" has the ownship of "house-type-2" with amount "20", and so on.
+    # initialOwnership = {
+    #     'a': {1: 0, 2: 40, 3: 10},
+    #     'b': {1: 20, 2: 10, 3: 0},
+    #     'c': {1: 0, 2: 0, 3: 10}
+    # }
+
+    agents = {'a', 'b', 'c'}
+    houses = {1, 2, 3, 4}
+
+    agentPreferences = {
+        'a': [2, 4, 3, 1],
+        'b': [3, 1, 4, 2],
+        'c': [4, 1, 2, 3]
+    }
+
+    # agent "a" has the ownship of "house-type-2" with amount "20", and so on.
+    initialOwnership = {
+        'a': {1: 0, 2: 40, 3: 10, 4: 10},
+        'b': {1: 20, 2: 10, 3: 0, 4: 10},
+        'c': {1: 0, 2: 0, 3: 10, 4: 10}
+    }
 
     subagents = set()
     for a in agents:
@@ -303,5 +340,4 @@ if __name__ == "__main__":
         final_allocation[a] = one_allocation
 
     print("initialOwnership: ", initialOwnership)
-    print("allocation: ", allocation)
     print("final_allocation: ", final_allocation)
