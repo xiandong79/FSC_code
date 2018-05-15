@@ -1,5 +1,8 @@
 # -*- coding:utf-8 -*-
 class Vertex(object):
+    """ each subagent and each house are one vertex.
+    """
+
     def __init__(self, graph, vertexId):
         self.graph = graph
         self.vertexId = vertexId
@@ -23,6 +26,9 @@ class Vertex(object):
 
 
 class Graph(object):
+    """The graph consists vertices(subagents and houses) and edges(source, target, capacity)  
+    """
+
     def __init__(self, vertexIds):
         self.vertices = dict((name, Vertex(self, name)) for name in vertexIds)
         # 'd1': Vertex('d1'),
@@ -51,6 +57,9 @@ class Graph(object):
 
 
 class Cycle(object):
+    """The cycle is where "trade" happens which also consists vertices and edges.
+    """
+
     def __init__(self):
         self.vertices = list()  # list of Vertex
         self.edges_capacity = list()
@@ -65,10 +74,11 @@ class Cycle(object):
         return repr(self)
 
 
-# anyCycle: graph -> vertex
-# find a vertex involved in a cycle
-
 def anyCycle(G):
+    """find a vertex involved in a cycle
+    input -> a graph
+    output -> a vertex in one cycle
+    """
     visited = set()
     v = G.anyVertex()
 
@@ -80,10 +90,14 @@ def anyCycle(G):
 
 
 # getAgents: graph, vertex -> set(vertex)
-# get the set of agents on a cycle starting at the "given vertex"
+
 def getCycle(G, starting, subagents):
+    """get the set of agents on a cycle starting at the "given vertex"
+    input -> a graph, a vertex
+    output -> set(vertex)
     # a cycle in G is represented by any vertex of the cycle
     # outdegree guarantee means we don't care which vertex it is
+    """
 
     # make sure starting vertex is a house
     if starting.vertexId in subagents:
@@ -109,6 +123,8 @@ def getCycle(G, starting, subagents):
 
 
 def delete_vertex(vertex, G):
+    """delete a vertex and its attaching edges (incomingEdges and outgoingEdges) in graph G
+    """
     if type(vertex) is Vertex:
         vertex = vertex.vertexId
 
@@ -122,6 +138,8 @@ def delete_vertex(vertex, G):
 
 
 def delete_house(houses, subagents, G):
+    """delete a house in graph G if its outgoingEdges = 0 which means all the assignment related to this house has been finished.
+    """
     for v in list(G.vertices.keys()):
         if v in houses and G[v].outdegree() == 0:
             print("delete house: ", v)
@@ -129,6 +147,10 @@ def delete_house(houses, subagents, G):
 
 
 def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership):
+    """the main procedure of whole MTTC
+    input -> subagents, houses, subagentsPreferences, subagentsOwnership
+    output -> allocation for each subagent
+    """
     subagents = set(subagents)
     vertexSet = set(subagents) | set(houses)
     G = Graph(vertexSet)
@@ -136,8 +158,11 @@ def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership
     # maps agent to an index of the list agentPreferences[agent]
     currentPreferenceIndex = dict((a, 0) for a in subagents)
 
-    def preferredHouse(
-        a): return subagentsPreferences[a][currentPreferenceIndex[a]]
+    def preferredHouse(a):
+        """change the "preferred house" of subagents to their favorite "existing" houses in graph G.
+        # some houses may have been assignmented and deleted.
+        """
+        return subagentsPreferences[a][currentPreferenceIndex[a]]
 
     for a in subagents:
         # addEdge(self, source, target, capacity):
@@ -152,6 +177,8 @@ def topTradingCycles(subagents, houses, subagentsPreferences, subagentsOwnership
     allocation = dict()
 
     def add_to_allocation(a, h, c):
+        """collect the collect round by round in MTTC
+        """
         if a in allocation:
             allocation[a][h] = c + \
                 allocation[a][h] if h in allocation[a] else c
@@ -287,22 +314,55 @@ if __name__ == "__main__":
     #     'c': {1: 0, 2: 0, 3: 10}
     # }
 
+    # agents = {'a', 'b', 'c'}
+    # houses = {1, 2, 3}
+
+    # agentPreferences = {
+    #     'a': [2, 3, 1],
+    #     'b': [1, 2, 3],
+    #     'c': [1, 2, 3]
+    # }
+
+    # # agent "a" has the ownship of "house-type-2" with amount "20", and so on.
+    # initialOwnership = {
+    #     'a': {1: 2, 2: 4, 3: 1},
+    #     'b': {1: 2, 2: 1, 3: 2},
+    #     'c': {1: 2, 2: 1, 3: 2}
+    # }
+
     agents = {'a', 'b', 'c'}
-    houses = {1, 2, 3, 4}
+    houses = {1, 2}
 
     agentPreferences = {
-        'a': [2, 4, 3, 1],
-        'b': [3, 1, 4, 2],
-        'c': [4, 1, 2, 3]
+        'a': [2, 1],
+        'b': [1, 2],
+        'c': [1, 2]
     }
 
     # agent "a" has the ownship of "house-type-2" with amount "20", and so on.
     initialOwnership = {
-        'a': {1: 0, 2: 40, 3: 10, 4: 10},
-        'b': {1: 20, 2: 10, 3: 0, 4: 10},
-        'c': {1: 0, 2: 0, 3: 10, 4: 10}
+        'a': {1: 1, 2: 0},
+        'b': {1: 0, 2: 1},
+        'c': {1: 0, 2: 1}
     }
 
+    # agents = {'a', 'b', 'c'}
+    # houses = {1, 2, 3, 4}
+
+    # agentPreferences = {
+    #     'a': [2, 4, 3, 1],
+    #     'b': [3, 1, 4, 2],
+    #     'c': [4, 1, 2, 3]
+    # }
+
+    # # agent "a" has the ownship of "house-type-2" with amount "20", and so on.
+    # initialOwnership = {
+    #     'a': {1: 0, 2: 40, 3: 10, 4: 10},
+    #     'b': {1: 20, 2: 10, 3: 0, 4: 10},
+    #     'c': {1: 0, 2: 0, 3: 10, 4: 10}
+    # }
+
+    # split each agent into M subagents. M is the number of machine types.
     subagents = set()
     for a in agents:
         for h in houses:
@@ -310,6 +370,7 @@ if __name__ == "__main__":
 
     subagentsOwnership = dict()
 
+    # split the ownership of each agent into subagentsOwnership of M subagents.
     for sub in subagents:
         agent = sub[0]
         house = sub[1]
@@ -325,7 +386,7 @@ if __name__ == "__main__":
     allocation = topTradingCycles(subagents, houses, subagentsPreferences,
                                   subagentsOwnership)
 
-    # collect allocation
+    # collect final allocation from subagents to their original agent.
     final_allocation = {}
     for a in agents:
         one_allocation = {}
@@ -339,5 +400,5 @@ if __name__ == "__main__":
                     one_allocation[res] = allo[res]
         final_allocation[a] = one_allocation
 
-    print("initialOwnership: ", initialOwnership)
-    print("final_allocation: ", final_allocation)
+    print("initialOwnership =", initialOwnership)
+    print("final_allocation =", final_allocation)
