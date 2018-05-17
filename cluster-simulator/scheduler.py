@@ -22,10 +22,10 @@ class Scheduler:
         self.submitted_stages_number = 0  # for record of dead data generation
         self.submit_jobs_number = 0
 
-        # add by cc
-        self.stageIdToUsedMachineId = dict()
-        self.stageIdToAllowedMachineId = dict()
-        self.stageIdToStage = dict()
+        # # add by cc
+        # self.stageIdToUsedMachineId = dict()
+        # self.stageIdToAllowedMachineId = dict()
+        # self.stageIdToStage = dict()
 
         self.pending_stages = list()
         # in FSC，每个人就是按照自己的运行的 ownership 以内的数量（slot per type）进行运行 。
@@ -91,6 +91,7 @@ class Scheduler:
                     # first check whether time out
                     if task.first_attempt_time > 0:
                         if time - task.first_attempt_time > task.timeout:
+                            # time_out = 0 is the time to wait for "data locality" in chenchen' paper
                             for machineId in self.cluster.make_offers():
                                 if task.timeout == 100:
                                     task.runtime = task.runtime * 1
@@ -128,10 +129,11 @@ class Scheduler:
         self.task_buffer.append(stage)
 
         # add by cc
-        # xiandong: parent_ids 相关的 DAG信息+操作，是不是也可以完全删除。
+        # xiandong: parent_ids 相关的 DAG信息+操作，是不是也可以完全删除。 "删除！"
         if len(stage.parent_ids) == 0:
             self.stageIdToAllowedMachineId[stage.id] = range(
                 self.cluster.num_machine)
+            # stageIdToAllowedMachineId 删除 “前后stage关联信息” 2018-05-16
         else:
             tmpList = list()
             for id in stage.parent_ids:

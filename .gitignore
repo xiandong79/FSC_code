@@ -3,3 +3,22 @@
 
 *.pyc 
 *.pyo
+
+__pycache__/
+
+build/
+dist/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+*.log
+
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt

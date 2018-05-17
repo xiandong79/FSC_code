@@ -2,12 +2,12 @@ from job import Job
 
 
 class Stage:
-    def __init__(self, job_id, id, parent_ids, tasks):
+    def __init__(self, job_id, id, tasks):
         self.job_id = job_id
         self.id = id
         self.user_id = 1
         self.taskset = tasks
-        self.parent_ids = parent_ids
+        # self.parent_ids = parent_ids
         self.completed_tasks = list()
         self.not_completed_tasks = [task for task in self.taskset]
         self.not_submitted_tasks = [task for task in self.taskset]

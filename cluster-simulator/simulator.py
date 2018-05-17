@@ -27,6 +27,8 @@ except ImportError:
 class Simulator(object):
     """
     waiting for design by xiandong
+    Attention: Task_id = 'user_%s_task_%s' % (user_id, task_id), another customized name for task_id
+                Job_id = 'user_%s_job_%s' % (user_id, job_id),
     """
 
     def __init__(self, cluster, users, input_data_dir, user_number, machine_type):
@@ -37,7 +39,9 @@ class Simulator(object):
         self.users = users  # add by xiandong
         self.json_dir = input_data_dir
         self.scheduler = Scheduler(cluster)
-        self.job_list = list()  # list of lists. A job list for each user. by xiandong
+        self.job_list = list()  # list of lists by chenchen. A job list for each user. by xiandong
+        # due to we use it by 'self.job_list[user_index][job_i].submit_time'
+        # it seems a dict() is better. because the "user-id" is the key for dict()
         self.event_queue = Q.PriorityQueue()
         self.timestamp = 0
         self.user_number = user_number
@@ -67,63 +71,83 @@ class Simulator(object):
 
         self.generate_job_profile()
 
+        for _ in user_number:
+            self.job_list.append(list())
+        # initialize 'job_list': [[], [], []]
+
     def generate_job_profile(self):
-        # generate_job_profile(self, user_id): modified by xiandong
+        # generate_job_profile(self, user_id):
+        # the user_id has been genarated and stored in the 'self.job_profile' modified by xiandong
         """
         load the input data
         """
         self.job_list.append(list())
         task_id = 0
         job_submit_time = dict()
-        job_priority = dict()
+        # job_priority = dict()
+        # 2018-05-16 currently, we do not consider 'job_priority' by xiandong
         print("begin generate_job_profile step")
 
         for c_job_id in self.job_profile:
-            # temporary setting
+            # temporary setting - 'c_job_id'
+            # c_job_id is the 'key' of OrderedDict, also can be used as "job_id"
+            # by xiandong
             job_submit_time[int(c_job_id)
                             ] = self.job_profile[c_job_id]["Submit Time"]
+            # print(self.job_profile[c_job_id]["Submit Time"])
 
         for stage_id in self.stage_profile:
-            timeout_type = 0
+            # stage_id is the 'key' in OrderedDict - self.stage_profile
             job_id = self.stage_profile[stage_id]["Job ID"]
+            # job_id is type int
+            user_id = self.job_profile[str(job_id)]["User ID"]
+            # print(type(user_id)) Attention...
+            # <class 'str'>
+            # user_id is added by xiandong
             self.job_durations[job_id] = 0
+            # each job only have one stage, and have several tasks in this job(stage)
             Job_id = 'user_%s_job_%s' % (user_id, job_id)
             Stage_id = 'user_%s_stage_%s' % (user_id, stage_id)
             task_number = self.stage_profile[stage_id]["Task Number"]
 
+            # print(job_id, user_id, Job_id, Stage_id, task_number)
+            # result is '0 19 user_19_job_0 user_19_stage_0 1'
+            # 2018-05-16 above works well
+
             # generate taskset of the stage
             taskset = list()
             max_time = 0
+            time_out = 0
             for i in range(0, task_number):
                 runtime = self.search_runtime(stage_id, i)
                 if runtime > max_time:
                     max_time = runtime
                 Task_id = 'user_%s_task_%s' % (user_id, task_id)
-                time_out = 0
-                if timeout_type == 0:
-                    task = Task(Job_id, Stage_id, Task_id, i,
-                                runtime, time_out, job_priority[job_id])
-                else:
-                    # task = Task(Job_id, Stage_id, Task_id, i, runtime, 3000, job_priority[job_id])
-                    task = Task(Job_id, Stage_id, Task_id, i,
-                                runtime, time_out, job_priority[job_id])
+                task = Task(Job_id, Stage_id, Task_id, i, runtime, time_out)
+                # check the input arguments of 'Task' class by xiandong ,2018-05-16
+                # time_out = 0 is the time to wait for "data locality" in chenchen' paper
+
                 task_id += 1
                 task.user_id = user_id
                 taskset.append(task)
-            stage = Stage(Job_id, Stage_id, Parent_ids, taskset)
+            stage = Stage(Job_id, Stage_id, taskset)
+            # stage = Stage(Job_id, Stage_id, Parent_ids, taskset)
+            # Parent_ids， the relation of "stage" is deleted by xiandong
 
-            self.scheduler.stageIdToStage[Stage_id] = stage
+            # self.scheduler.stageIdToStage[Stage_id] = stage
             for task in taskset:
                 task.stage = stage
             stage.user_id = user_id
 
             if self.search_job_by_id(Job_id, user_id) == False:
-                job = Job(Job_id)
+                # Job(Job_id) class need modification by xiandong
+                job = Job(Job_id, user_id)
                 job.index = int(job_id)
                 job.user_id = user_id
                 job.stages.append(stage)
                 job.submit_time = job_submit_time[job_id]
                 self.job_list[user_id].append(job)
+                # really important
                 stage.job = job
             else:  # this job already exits
                 job = self.search_job_by_id(Job_id, user_id)
@@ -232,6 +256,7 @@ class Simulator(object):
                 event.task.has_completed = True
                 self.scheduler.stageIdToAllowedMachineId[event.task.stage_id].append(
                     event.task.machine_id)
+                # need to be deleted by xiandong
                 self.cluster.release_task(event.task)
                 event.task.stage.not_completed_tasks.remove(event.task)
                 event.task.stage.completed_tasks.append(event.task)
@@ -358,9 +383,14 @@ class Simulator(object):
         return self.runtime_profile[str(stage_id)][str(task_index)]['runtime']
 
     def search_job_by_id(self, job_id, user_index):
-        for job in self.job_list[user_index]:
-            if job.id == job_id:
-                return job
+        # print(user_index, type(user_index))
+        if len(self.job_list[int(user_index)]) != 0:
+            # above line is added for Error 2.
+            for job in self.job_list[int(user_index)]:
+                # Error 1. TypeError: list indices must be integers or slices, not str <fixed by "int()">
+                # Error 2. IndexError: list index out of range
+                if job.id == job_id:
+                    return job
         return False
 
     def reset(self):
