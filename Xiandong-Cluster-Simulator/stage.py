@@ -1,7 +1,8 @@
 from job import Job
 
+
 class Stage:
-    def __init__(self, job_id, id, parent_ids,tasks):
+    def __init__(self, job_id, id, parent_ids, tasks):
         self.job_id = job_id
         self.id = id
         self.user_id = 1
@@ -16,7 +17,6 @@ class Stage:
         self.submit_time = 0
         self.last_task_submit_time = 0
         self.finish_time = 0
-        self.monopolize_time = 0
         # unfinished, for locality maintaining.
         self.job = None
         self.has_done_speculation = False
@@ -28,4 +28,3 @@ class Stage:
         self.not_submitted_tasks = self.taskset
         self.not_completed_tasks = self.taskset
         self.completed_tasks = list()
-

@@ -5,6 +5,7 @@ from machine import Machine
 
 DEBUG = False
 
+
 class Cluster:
 
     def __init__(self, machines):
@@ -15,7 +16,7 @@ class Cluster:
         self.is_vacant = True
         self.vacant_machine_list = set(range(self.machine_number))
 
-        self.alpha = 0.8
+        # self.alpha = 0.8
         self.isDebug = False
         self.totalJobNumber = 0
 
@@ -34,7 +35,7 @@ class Cluster:
 #        print "job ", task.stage.job.id, "alloc increase to", task.stage.job.alloc
         self.check_if_vacant()
 
-    def search_job_by_id(self,job_id): # job_id contains user id
+    def search_job_by_id(self, job_id):  # job_id contains user id
         for job in self.running_jobs:
             if job.id == job_id:
                 return job
@@ -92,10 +93,9 @@ class Cluster:
                 totalResources = 0.0
 #            result = [[int(j.id.split("_")[-1]), j.fairAlloc] for j in jobList]
         for i in range(len(jobList)):
-            jobList[i].nDemand = jobList[i].demand/ jobList[i].weight
+            jobList[i].nDemand = jobList[i].demand / jobList[i].weight
             jobList[i].targetAlloc = jobList[i].fairAlloc
             print "result: ", i, jobList[i].id, jobList[i].targetAlloc
-            jobList[i].update_slope()
 
     def calculate_targetAlloc(self):
         jobList = [job for job in self.running_jobs]
@@ -103,4 +103,3 @@ class Cluster:
             return
         self.calculate_fairAlloc()
         return
-

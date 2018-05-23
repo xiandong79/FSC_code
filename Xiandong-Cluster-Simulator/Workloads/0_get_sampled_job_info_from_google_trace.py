@@ -1,7 +1,11 @@
 import random
 import csv
+import os
 
-f = open("/Users/dong/Dropbox/Soft-Constraints/Code_Experiment/generate_input_info/workload.csv", 'r')
+full_path = os.path.realpath(__file__)
+path, filename = os.path.split(full_path)
+
+f = open(path + "/workload.csv", 'r')
 data = f.readlines()
 f.close()
 jobArriveTimes = []
@@ -52,7 +56,7 @@ for i in range(NoJ):
     sampled_job_info.append(job_info)
 
 
-with open("/Users/dong/Dropbox/Soft-Constraints/Code_Experiment/generate_input_info/sampled_job_info.csv", "w+") as my_csv:
+with open(path + "/sampled_job_info.csv", "w+") as my_csv:
 
     csvWriter = csv.writer(my_csv, delimiter=',')
     # csvWriter.writerow(['job id', 'user id', 'arrival time',

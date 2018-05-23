@@ -5,14 +5,14 @@ from job import Job
 from stage import Stage
 from task import Task
 from scheduler import Scheduler
-from event import (EventJobComplete, EventReAlloc, EventStageSubmit, EventJobSubmit, EventStageComplete, EventTaskComplete, EventTaskSubmit)
+from event import (EventJobComplete, EventReAlloc, EventStageSubmit,
+                   EventJobSubmit, EventStageComplete, EventTaskComplete, EventTaskSubmit)
 
 
 try:
     import Queue as Q  # ver. < 3.0
 except ImportError:
     import queue as Q
-
 
 
 class Simulator:
@@ -30,31 +30,36 @@ class Simulator:
         self.user_number = user_number
         self.job_durations = {}
         self.stage_durations = {}
-        self.job_execution_profile = {} # record the execution information of jobs
+        self.job_execution_profile = {}  # record the execution information of jobs
         for user_index in range(0, user_number):
             stage_profile_path = "Workloads/stage_profile.json"
-            self.stage_profile = json.load(open(stage_profile_path, 'r'), object_pairs_hook=OrderedDict)
+            self.stage_profile = json.load(
+                open(stage_profile_path, 'r'), object_pairs_hook=OrderedDict)
             print "stage_profile loaded"
 
             runtime_path = "Workloads/runtime.json"
-            self.runtime_profile = json.load(open(runtime_path, 'r'), object_pairs_hook=OrderedDict)
+            self.runtime_profile = json.load(
+                open(runtime_path, 'r'), object_pairs_hook=OrderedDict)
             print "runtime_profile loaded"
 
             job_path = "Workloads/job.json"
-            self.job_profile = json.load(open(job_path, 'r'), object_pairs_hook=OrderedDict)
+            self.job_profile = json.load(
+                open(job_path, 'r'), object_pairs_hook=OrderedDict)
             print "job_profile loaded"
             self.generate_job_profile(user_index)
 
     def run(self):
         runtime = 0
-        self.log.add('Simulation Starts with %s machines.'%(len(self.cluster.machines)),0)
+        self.log.add('Simulation Starts with %s machines.' %
+                     (len(self.cluster.machines)), 0)
         current_job_index = dict()  # map from user id to its current running job index
         for user_index in range(0, self.user_number):
             current_job_index[user_index] = 0
             for job_i in range(len(self.job_list[user_index])):
-                self.event_queue.put(EventJobSubmit(self.job_list[user_index][job_i].submit_time, self.job_list[user_index][job_i]))
-        self.event_queue.put(EventReAlloc(0)) # - trigger the first allocation action
-
+                self.event_queue.put(EventJobSubmit(
+                    self.job_list[user_index][job_i].submit_time, self.job_list[user_index][job_i]))
+        # - trigger the first allocation action
+        self.event_queue.put(EventReAlloc(0))
 
         while not self.event_queue.empty():
             event = self.event_queue.get()
@@ -66,7 +71,8 @@ class Simulator:
                     new_events.append(EventReAlloc(event.time + 1000))
                 for item in msg:
                     new_events.append(EventTaskSubmit(event.time, item[0]))
-                    new_events.append(EventTaskComplete(event.time + item[0].runtime, item[0], item[1]))
+                    new_events.append(EventTaskComplete(
+                        event.time + item[0].runtime, item[0], item[1]))
 
             if isinstance(event, EventJobSubmit):
                 current_job_index[event.job.user_id] = event.job.index
@@ -79,7 +85,8 @@ class Simulator:
                 msg = self.scheduler.submit_stage(event.stage, event.time)
                 for item in msg:
                     new_events.append(EventTaskSubmit(event.time, item[0]))
-                    new_events.append(EventTaskComplete(event.time + item[0].runtime, item[0], item[1]))
+                    new_events.append(EventTaskComplete(
+                        event.time + item[0].runtime, item[0], item[1]))
 
             elif isinstance(event, EventTaskSubmit):
                 event.task.start_time = event.time
@@ -93,20 +100,25 @@ class Simulator:
                 event.task.finish_time = event.time
                 if self.cluster.isDebug:
                     print "time", event.time, "   finish task ", event.task.id, "-job-", event.task.job_id, "-slot-", event.task.machine_id
-                self.scheduler.stageIdToAllowedMachineId[event.task.stage_id].append(event.task.machine_id)
+                self.scheduler.stageIdToAllowedMachineId[event.task.stage_id].append(
+                    event.task.machine_id)
                 self.cluster.release_task(event.task)
                 event.task.stage.not_completed_tasks.remove(event.task)
                 event.task.stage.completed_tasks.append(event.task)
                 if len(event.task.stage.not_completed_tasks) == 0:
-                    new_events.append(EventStageComplete(event.time, event.task.stage))
+                    new_events.append(EventStageComplete(
+                        event.time, event.task.stage))
                 if len(event.task.stage.not_submitted_tasks) > 0:
-                    msg = [[event.task.stage.not_submitted_tasks[0], event.task.machine_id]]
-                    runtime = self.cluster.assign_task(event.task.machine_id, event.task.stage.not_submitted_tasks[0], event.time)
+                    msg = [[event.task.stage.not_submitted_tasks[0],
+                            event.task.machine_id]]
+                    runtime = self.cluster.assign_task(
+                        event.task.machine_id, event.task.stage.not_submitted_tasks[0], event.time)
                 else:
                     msg = self.scheduler.do_allocate(event.time)
                 for item in msg:
                     new_events.append(EventTaskSubmit(event.time, item[0]))
-                    new_events.append(EventTaskComplete(event.time + item[0].runtime, item[0], item[1]))
+                    new_events.append(EventTaskComplete(
+                        event.time + item[0].runtime, item[0], item[1]))
 
             elif isinstance(event, EventStageComplete):
                 stageSlots = set()
@@ -114,29 +126,31 @@ class Simulator:
                     stageSlots.add(i.machine_id)
                 event.stage.finish_time = event.time
                 self.stage_durations[event.stage.id] = {}
-                self.stage_durations[event.stage.id]["task num"] = len(event.stage.taskset)
-                self.stage_durations[event.stage.id]["used slot num"] = len(stageSlots)
-                self.stage_durations[event.stage.id]["monopolize"] = event.stage.monopolize_time
-                self.stage_durations[event.stage.id]["duration"] = event.stage.finish_time - event.stage.submit_time
-                msg = self.scheduler.stage_complete(event.stage) # ready_stage or job (tell the simulator the entire job is done)
+                self.stage_durations[event.stage.id]["task num"] = len(
+                    event.stage.taskset)
+                self.stage_durations[event.stage.id]["used slot num"] = len(
+                    stageSlots)
+                self.stage_durations[event.stage.id]["duration"] = event.stage.finish_time - \
+                    event.stage.submit_time
+                # ready_stage or job (tell the simulator the entire job is done)
+                msg = self.scheduler.stage_complete(event.stage)
                 for item in msg:
-                    if isinstance(item, Stage): # stage ready to be submitted
+                    if isinstance(item, Stage):  # stage ready to be submitted
                         new_events.append(EventStageSubmit(event.time, item))
-                    else: # must be job, which means the job is done
+                    else:  # must be job, which means the job is done
                         new_events.append(EventJobComplete(event.time, item))
 
             elif isinstance(event, EventJobComplete):
                 event.job.completion_time = event.time
                 event.job.duration = event.time - event.job.submit_time
                 event.job.execution_time = event.time - event.job.start_execution_time
-                print "-", event.job.id, " (job) finishes, duration", event.job.duration, " job.alloc ", event.job.alloc, "PR:", float(event.job.monopolize_time) / event.job.execution_time
-                event.job.progress_rate = float(event.job.monopolize_time) / event.job.execution_time
+                print "-", event.job.id, " (job) finishes, duration", event.job.duration, " job.alloc ", event.job.alloc
                 self.scheduler.handle_job_completion(event.job)
-                self.job_durations[int(event.job.id.split("_")[-1])] = event.job.duration
+                self.job_durations[int(event.job.id.split(
+                    "_")[-1])] = event.job.duration
                 job_id = int(event.job.id.split("_")[-1])
                 self.job_execution_profile[job_id] = {}
                 self.job_execution_profile[job_id]["duration"] = event.job.duration
-                self.job_execution_profile[job_id]["demand"] = len(event.job.curve)-1
                 self.job_execution_profile[job_id]["execution_time"] = event.job.execution_time
 #                self.job_execution_profile[job_id]["runtimes"] = [[i.runtime, i.machine_id, i.start_time, i.finish_time] for i in event.job.stages[0].taskset]
                 if self.scheduler.scheduler_type == "paf":
@@ -146,30 +160,20 @@ class Simulator:
                     self.job_execution_profile[job_id]["fair_alloc"] = event.job.alloc
                     self.job_execution_profile[job_id]["target_alloc"] = event.job.alloc
                 self.job_execution_profile[job_id]["alloc"] = event.job.alloc
-                self.job_execution_profile[job_id]["progress_rate"] = event.job.progress_rate
 
             for new_event in new_events:
                 self.event_queue.put(new_event)
 
-        progress_rates = []
-        for job in self.job_list[0]:
-            progress_rates.append(job.progress_rate)
-        print "total average progress rate:", sum(progress_rates)/len(progress_rates)
-
         if self.scheduler.scheduler_type == "paf":
-            fname = "ExecutionResult/" + str(self.cluster.machine_number) + "_" + self.scheduler.scheduler_type + "_" + str(self.cluster.alpha) +".json"
+            fname = "ExecutionResult/" + str(self.cluster.machine_number) + "_" + \
+                self.scheduler.scheduler_type + "_" + ".json"
         else:
-            fname = "ExecutionResult/" + str(self.cluster.machine_number) + "_" + self.scheduler.scheduler_type +".json"
-        f = open(fname,'w')
-        json.dump(self.job_execution_profile,f,indent=2, sort_keys=True)
+            fname = "ExecutionResult/" + \
+                str(self.cluster.machine_number) + "_" + \
+                self.scheduler.scheduler_type + ".json"
+        f = open(fname, 'w')
+        json.dump(self.job_execution_profile, f, indent=2, sort_keys=True)
         f.close()
-        # - if you want to save output to json file, please enable the following lines
-        # f = open("Workloads/job_duration.json",'w')
-        # json.dump(self.job_durations,f,indent=2)
-        # f.close()
-        # f = open("Workloads/stage_duration.json",'w')
-        # json.dump(self.stage_durations,f,indent=2)
-        # f.close()
 
         return [runtime]
 
@@ -178,30 +182,26 @@ class Simulator:
         task_id = 0
         job_submit_time = dict()
         job_priority = dict()
-        job_curveString = dict()
-        job_monopolize_time = dict()
         job_weight = dict()
-        job_accelerate_factor = dict()
         print "enter generate_job_profile"
 
         stageIdToParallelism = dict()
         for c_job_id in self.job_profile:
             # temporary setting
-            job_submit_time[int(c_job_id)] = self.job_profile[c_job_id]["Submit Time"]
-            job_priority[int(c_job_id)] = self.job_profile[c_job_id]["Priority"]
-            job_curveString[int(c_job_id)] = self.job_profile[c_job_id]["curve"]
-            job_monopolize_time[int(c_job_id)] = self.job_profile[c_job_id]["Monopolize Time"]
+            job_submit_time[int(c_job_id)
+                            ] = self.job_profile[c_job_id]["Submit Time"]
+            job_priority[int(c_job_id)
+                         ] = self.job_profile[c_job_id]["Priority"]
             job_weight[int(c_job_id)] = self.job_profile[c_job_id]["Weight"]
-            job_accelerate_factor[int(c_job_id)] = self.job_profile[c_job_id]["Accelerate Factor"]
 
         for stage_id in self.stage_profile:
             timeout_type = 0
             job_id = self.stage_profile[stage_id]["Job ID"]
             self.job_durations[job_id] = 0
             Job_id = 'user_%s_job_%s' % (user_id, job_id)
-            Stage_id = 'user_%s_stage_%s' % (user_id, stage_id )
+            Stage_id = 'user_%s_stage_%s' % (user_id, stage_id)
             task_number = self.stage_profile[stage_id]["Task Number"]
-            ### change parallelism
+            # change parallelism
 
             stageIdToParallelism[Stage_id] = task_number
 
@@ -209,10 +209,10 @@ class Simulator:
             if "Parents" in self.stage_profile[stage_id]:
                 parent_ids = self.stage_profile[stage_id]["Parents"]
                 for parent_id in parent_ids:
-                    Parent_ids.append('user_%s_stage_%s' % (user_id, parent_id))
+                    Parent_ids.append('user_%s_stage_%s' %
+                                      (user_id, parent_id))
                     if stageIdToParallelism[Parent_ids[-1]] >= task_number:
                         timeout_type = 1
-
 
             # generate taskset of the stage
             taskset = list()
@@ -225,17 +225,19 @@ class Simulator:
                 Task_id = 'user_%s_task_%s' % (user_id, task_id)
                 time_out = 0
                 if timeout_type == 0:
-                    task = Task(Job_id, Stage_id, Task_id, i, runtime, time_out, job_priority[job_id])
+                    task = Task(Job_id, Stage_id, Task_id, i,
+                                runtime, time_out, job_priority[job_id])
                 else:
-                    task = Task(Job_id, Stage_id, Task_id, i, runtime, time_out, job_priority[job_id])
+                    task = Task(Job_id, Stage_id, Task_id, i,
+                                runtime, time_out, job_priority[job_id])
                 task_id += 1
                 task.user_id = user_id
                 taskset.append(task)
             stage = Stage(Job_id, Stage_id, Parent_ids, taskset)
-            stage.monopolize_time = max_time
 
             for id in Parent_ids:
-                self.scheduler.stageIdToStage[id].downstream_parallelism += len(taskset)
+                self.scheduler.stageIdToStage[id].downstream_parallelism += len(
+                    taskset)
 
             self.scheduler.stageIdToStage[Stage_id] = stage
             for task in taskset:
@@ -250,13 +252,10 @@ class Simulator:
                 job.submit_time = job_submit_time[job_id]
                 job.priority = job_priority[job_id]
                 job.weight = job_weight[job_id]
-                job.accelerate_factor = job_accelerate_factor[job_id]
-                job.set_curve(job_curveString[job_id])
-                job.monopolize_time = job_monopolize_time[job_id]
                 self.job_list[user_id].append(job)
                 stage.priority = job.priority
                 stage.job = job
-            else: # this job already exits
+            else:  # this job already exits
                 job = self.search_job_by_id(Job_id, user_id)
                 job.stages.append(stage)
                 stage.priority = job.priority
@@ -271,7 +270,8 @@ class Simulator:
             job.completed_stage_ids = list()
 
         # this part shall be changed, sort by the submission time of a job
-        self.job_list[user_id] = sorted(self.job_list[user_id], key=lambda job: job.index) #sort job_list by job_index
+        self.job_list[user_id] = sorted(
+            self.job_list[user_id], key=lambda job: job.index)  # sort job_list by job_index
         print "finish generate job profile"
         print "0: tasknumber:", len(self.job_list[0][0].stages[0].taskset)
 
@@ -288,4 +288,3 @@ class Simulator:
         for job in self.job_list:
             job.reset()
         self.cluster.reset()
-
