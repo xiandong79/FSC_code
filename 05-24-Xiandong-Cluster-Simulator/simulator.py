@@ -31,7 +31,11 @@ class Simulator:
         self.job_durations = {}
         self.stage_durations = {}
         self.job_execution_profile = {}  # record the execution information of jobs
+
         for user_index in range(0, user_number):
+            """currently, we load the 'job info (job, stage, runtime)' for each user separately.
+            which is equivalent to each user has 'exact same' job submition now!!!
+            """
             stage_profile_path = "Workloads/stage_profile.json"
             self.stage_profile = json.load(
                 open(stage_profile_path, 'r'), object_pairs_hook=OrderedDict)
@@ -144,7 +148,7 @@ class Simulator:
                 event.job.completion_time = event.time
                 event.job.duration = event.time - event.job.submit_time
                 event.job.execution_time = event.time - event.job.start_execution_time
-                print "-", event.job.id, " (job) finishes, duration", event.job.duration, " job.alloc ", event.job.alloc
+                print "time: ", event.time, "-", event.job.id, " (job) finishes, duration", event.job.duration, " job.alloc ", event.job.alloc
                 self.scheduler.handle_job_completion(event.job)
                 self.job_durations[int(event.job.id.split(
                     "_")[-1])] = event.job.duration

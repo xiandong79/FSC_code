@@ -10,7 +10,7 @@ path, filename = os.path.split(full_path)
 # print(filename + "\n")
 
 f = open(path + "/sampled_job_info.csv", 'r')
-d = f.readlines()
+d = f.readlines()   # d is "number of jobs"
 f.close()
 
 
@@ -18,8 +18,8 @@ stage_profile = collections.OrderedDict()
 job_profile = collections.OrderedDict()
 runtime_profile = collections.OrderedDict()
 
-
-for i in range(len(d)):
+for i in range(200):
+    # for i in range(len(d)):
     tmp = d[i].split(',')
 
     stage_id = i
