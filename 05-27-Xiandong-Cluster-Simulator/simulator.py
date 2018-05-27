@@ -17,8 +17,9 @@ except ImportError:
 
 class Simulator:
 
-    def __init__(self, cluster, json_dir, user_number):
+    def __init__(self, cluster, preference_value, json_dir, user_number):
         self.cluster = cluster
+        self.preference_value = preference_value
         self.log = Log()
         self.json_dir = json_dir
         self.cluster = cluster
@@ -43,19 +44,19 @@ class Simulator:
             stage_profile_path = "Workloads/stage_profile.json"
             self.stage_profile = json.load(
                 open(stage_profile_path, 'r'), object_pairs_hook=OrderedDict)
-            print "stage_profile loaded"
+            print("stage_profile loaded")
 
             runtime_path = "Workloads/runtime.json"
             self.runtime_profile = json.load(
                 open(runtime_path, 'r'), object_pairs_hook=OrderedDict)
-            print "runtime_profile loaded"
+            print("runtime_profile loaded")
 
             job_path = "Workloads/job.json"
             self.job_profile = json.load(
                 open(job_path, 'r'), object_pairs_hook=OrderedDict)
-            print "job_profile loaded"
+            print("job_profile loaded")
             self.generate_job_profile(user_index)
-            # as a result, the '3' types of information storaged above would be replaced when each user is loaded.
+            # as a result, the '3' types of information recorded above would be replaced when each user is loaded.
 
     def run(self):
         runtime = 0
@@ -84,8 +85,12 @@ class Simulator:
                 for item in msg:
                     # item[0] is task, item[1] is machine_id
                     new_events.append(EventTaskSubmit(event.time, item[0]))
+                    print("original task.runtime: ", item[0].runtime, "preference_value: ", self.preference_value[event.task.stage.job.user_id][event.task.machine_id], "task.runtime revised:", item[0].runtime /
+                          self.preference_value[event.task.stage.job.user_id][event.task.machine_id])
+                    # revised by xiandong
                     new_events.append(EventTaskComplete(
-                        event.time + item[0].runtime, item[0], item[1]))
+                        event.time + item[0].runtime /
+                        self.preference_value[event.task.stage.job.user_id][event.task.machine_id], item[0], item[1]))
 
             if isinstance(event, EventJobSubmit):
                 current_job_index[event.job.user_id] = event.job.index
@@ -104,7 +109,8 @@ class Simulator:
             elif isinstance(event, EventTaskSubmit):
                 event.task.start_time = event.time
                 if self.cluster.isDebug:
-                    print "time", event.time, " submit task ", event.task.id, "-job-", event.task.job_id, "-slot-", event.task.machine_id
+                    print("time", event.time, " submit task ", event.task.id,
+                          "-job-", event.task.job_id, "-slot-", event.task.machine_id)
                 if len(event.task.stage.not_submitted_tasks) == 0:
                     event.task.stage.last_task_submit_time = event.time
                 continue
@@ -112,7 +118,8 @@ class Simulator:
             elif isinstance(event, EventTaskComplete):
                 event.task.finish_time = event.time
                 if self.cluster.isDebug:
-                    print "time", event.time, "   finish task ", event.task.id, "-job-", event.task.job_id, "-slot-", event.task.machine_id
+                    print("time", event.time, "   finish task ", event.task.id,
+                          "-job-", event.task.job_id, "-slot-", event.task.machine_id)
                 self.scheduler.stageIdToAllowedMachineId[event.task.stage_id].append(
                     event.task.machine_id)
                 self.cluster.release_task(event.task)
@@ -130,8 +137,13 @@ class Simulator:
                     msg = self.scheduler.do_allocate(event.time)
                 for item in msg:
                     new_events.append(EventTaskSubmit(event.time, item[0]))
-                    new_events.append(EventTaskComplete(
-                        event.time + item[0].runtime, item[0], item[1]))
+                    print("original task.runtime: ", item[0].runtime, "preference_value: ", self.preference_value[event.task.stage.job.user_id][event.task.machine_id], "task.runtime revised:", item[0].runtime /
+                          self.preference_value[event.task.stage.job.user_id][event.task.machine_id])
+                    # new_events.append(EventTaskComplete(
+                    #     event.time + item[0].runtime, item[0], item[1]))
+                    # revised by xiandong
+                    new_events.append(EventTaskComplete(event.time + item[0].runtime /
+                                                        self.preference_value[event.task.stage.job.user_id][event.task.machine_id], item[0], item[1]))
 
             elif isinstance(event, EventStageComplete):
                 stageSlots = set()
@@ -157,8 +169,8 @@ class Simulator:
                 event.job.completion_time = event.time
                 event.job.duration = event.time - event.job.submit_time
                 event.job.execution_time = event.time - event.job.start_execution_time
-                print "-------: ", event.job.user_id
-                print "time: ", event.time, "-", event.job.id, " (job) finishes, duration", event.job.duration, " job.alloc ", event.job.alloc
+                print("time: ", event.time, "-job.user_id", event.job.user_id, "-job.id", event.job.id, " -job.duration",
+                      event.job.duration, " -job.alloc ", event.job.alloc)
                 self.scheduler.handle_job_completion(event.job)
                 self.job_durations[int(event.job.id.split(
                     "_")[-1])] = event.job.duration
@@ -168,7 +180,7 @@ class Simulator:
                 self.job_execution_profile[event.job.user_id][job_id]["duration"] = event.job.duration
                 self.job_execution_profile[event.job.user_id][job_id]["execution_time"] = event.job.execution_time
                 # self.job_execution_profile[job_id]["runtimes"] = [[i.runtime, i.machine_id, i.start_time, i.finish_time] for i in event.job.stages[0].taskset]
-                if self.scheduler.scheduler_type == "paf":
+                if self.scheduler.scheduler_type == "isolated":
                     self.job_execution_profile[event.job.user_id][job_id]["fair_alloc"] = event.job.fairAlloc
                     self.job_execution_profile[event.job.user_id][job_id]["target_alloc"] = event.job.targetAlloc
                 else:
@@ -179,7 +191,7 @@ class Simulator:
             for new_event in new_events:
                 self.event_queue.put(new_event)
 
-        if self.scheduler.scheduler_type == "paf":
+        if self.scheduler.scheduler_type == "isolated":
             fname = "ExecutionResult/" + str(self.cluster.user_number) + "_" + str(self.cluster.machine_number) + "_" + \
                 self.scheduler.scheduler_type + "_" + ".json"
         else:
@@ -198,7 +210,7 @@ class Simulator:
         job_submit_time = dict()
         job_priority = dict()
         job_weight = dict()
-        print "enter generate_job_profile"
+        print("enter generate_job_profile")
 
         stageIdToParallelism = dict()
         for c_job_id in self.job_profile:
@@ -267,7 +279,7 @@ class Simulator:
                 job.index = int(job_id)
                 job.user_id = user_id
                 job.stages.append(stage)
-                # we can do this becasue we only have one stage for each job
+                # we can do this because we only have one stage for each job
                 job.submit_time = job_submit_time[job_id]
                 job.priority = job_priority[job_id]
                 job.weight = job_weight[job_id]
@@ -292,8 +304,9 @@ class Simulator:
         # job.submit_time
         self.job_list[user_id] = sorted(
             self.job_list[user_id], key=lambda job: job.index)  # sort job_list by job_index
-        print "finish generate job profile for user " + str(user_id)
-        print "The task number of the user", user_id, "'s first stage of first job: ", len(self.job_list[user_id][0].stages[0].taskset)
+        print("finish generate job profile for user " + str(user_id))
+        print("The task number of the user", user_id, "'s first stage of first job: ", len(
+            self.job_list[user_id][0].stages[0].taskset))
 
     def search_runtime(self, stage_id, task_index):
         return self.runtime_profile[str(stage_id)][str(task_index)]['runtime']

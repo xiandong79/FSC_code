@@ -32,10 +32,13 @@ class Cluster:
         if self.machines[machineId].is_vacant:
             self.vacant_machine_list.remove(machineId)
         # revised by xiandong
+        self.users[task.stage.job.user_id].alloc[machineId] += 1
+        # add by xiandong
         task.stage.job.alloc += 1
         if task.stage.job.alloc == 1:
             task.stage.job.start_execution_time = time
-        print "job ", task.stage.job.id, "alloc increase to", task.stage.job.alloc
+        print("user_id", task.stage.job.user_id, "user.alloc increase to ",
+              self.users[task.stage.job.user_id].alloc, "job_id ", task.stage.job.id, "job.alloc increase to", task.stage.job.alloc)
         self.check_if_vacant()
 
     def search_job_by_id(self, job_id):  # job_id contains user id
@@ -55,6 +58,8 @@ class Cluster:
     def release_task(self, task):
         running_machine_id = task.machine_id
         running_machine = self.machines[running_machine_id]
+        self.users[task.stage.job.user_id].alloc[running_machine_id] -= 1
+        # add by xiandong
         for core in running_machine.cores:
             if core.running_task == task:
                 core.running_task = None
@@ -71,7 +76,7 @@ class Cluster:
             machine.reset()
 
     def calculate_targetAlloc(self):
-        print "calculate_targetAlloc is invoking"
+        print("calculate_targetAlloc is invoking")
         pass
         # jobList = [job for job in self.running_jobs]
         # if len(jobList) != self.totalJobNumber - 1:

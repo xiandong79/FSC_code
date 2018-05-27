@@ -1,14 +1,16 @@
-##Simulator submits jobs and stages to the scheduler
-##Scheduler submits tasks to the cluster
+# Simulator submits jobs and stages to the scheduler
+# Scheduler submits tasks to the cluster
+
 
 class Scheduler:
     def __init__(self, cluster):
         self.cluster = cluster
-        self.task_buffer = list()  #tasks waiting to be scheduled
+        self.task_buffer = list()  # tasks waiting to be scheduled
         self.completed_stage_ids = list()
-        self.ready_stages = list() # for record to avoid duplicate submission while checking the ready stages
+        # for record to avoid duplicate submission while checking the ready stages
+        self.ready_stages = list()
 
-        self.submitted_stages_number = 0 # for record of dead data generation
+        self.submitted_stages_number = 0  # for record of dead data generation
         self.submit_jobs_number = 0
 
         # add by cc
@@ -21,7 +23,7 @@ class Scheduler:
         # self.taskIdToAllowedMachineId = dict()
 
     def check_waiting(self):
-        print "check_waiting:", len(self.task_buffer)
+        print("check_waiting:", len(self.task_buffer))
         if len(self.task_buffer) > 0:
             return True
         else:
@@ -30,15 +32,21 @@ class Scheduler:
     def sort_tasks(self):
         if self.scheduler_type == "fair":
             # - fair scheduler: preferentially serve the job starved most
-            self.task_buffer.sort(key=lambda x: x.job.alloc / x.job.weight)
+            # self.task_buffer.sort(key=lambda x: x.job.alloc / x.job.weight)
+            # revised by xiandong
+            # self.task_buffer.sort(key=lambda x: self.cluster.users[x.job.user_id].alloc / 1)
+            self.task_buffer.sort(key=lambda x: sum(v for _, v in self.cluster.users[x.job.user_id].alloc.iteritems())
+                                  / self.cluster.users[x.job.user_id].total_ownership)
         else:
             # - other scheduler: first define a target allocation, and then conduct progressive filling
-            self.task_buffer.sort(key=lambda x: x.job.alloc / x.job.targetAlloc)
+            self.task_buffer.sort(
+                key=lambda x: x.job.alloc / x.job.targetAlloc)
         return
 
     def do_allocate(self, time):
-        self.sort_tasks() # - this function is very important! It determines the scheduling algorithms!
-        msg=list() # - msg returns the allocation scheme
+        # - this function is very important! It determines the scheduling algorithms!
+        self.sort_tasks()
+        msg = list()  # - msg returns the allocation scheme
         if len(self.cluster.make_offers()) == 0 or len(self.task_buffer) == 0:
             # - if there is no idle slot or no pending tasks, skip allocation immediately
             return msg
@@ -53,12 +61,14 @@ class Scheduler:
                 sign = False
                 for machineId in self.cluster.make_offers():
                     sign = True
-                    if machineId in self.stageIdToAllowedMachineId[task.stage.id]:
-                        # - if locality requirement is satisfied
-                        success = True
-                        self.cluster.assign_task(machineId, task, time)
-                        msg.append((task, machineId))
-                        break
+                    if self.cluster.users[task.stage.job.user_id].alloc[machineId] < self.cluster.users[task.stage.job.user_id].ownership[machineId]:
+                        # revised by xiandong
+                        if machineId in self.stageIdToAllowedMachineId[task.stage.id]:
+                            # - if locality requirement is satisfied
+                            success = True
+                            self.cluster.assign_task(machineId, task, time)
+                            msg.append((task, machineId))
+                            break
                 if success == False and sign == True:
                     # - if locality requirement is not satisfied.
                     if task.first_attempt_time > 0:
@@ -67,7 +77,8 @@ class Scheduler:
                             #  time_out = 0, 05-25
                             for machineId in self.cluster.make_offers():
                                 # - task runtime is prolonged due to poor data locality
-                                task.runtime *= 1.5
+                                # task.runtime *= 1.5
+                                task.runtime *= 1
                                 self.cluster.assign_task(machineId, task, time)
                                 msg.append((task, machineId))
                                 break
@@ -75,7 +86,8 @@ class Scheduler:
                         task.first_attempt_time = time
         return msg
 
-    def submit_job(self, job):  # upon submission of a job, find the stages that are ready to be submitted
+    # upon submission of a job, find the stages that are ready to be submitted
+    def submit_job(self, job):
         self.cluster.running_jobs.append(job)
         self.cluster.calculate_targetAlloc()
         # - current I assume each job has only one stage
@@ -86,12 +98,14 @@ class Scheduler:
         return [ready_stages]
         # return [EventStageSubmit(time, stage) for stage in ready_stages]
 
-    def submit_stage(self, stage, time):  # upon submission of a stage, all the tasks in the stage are ready to be submitted. Submit as many tasks as possible
+    # upon submission of a stage, all the tasks in the stage are ready to be submitted. Submit as many tasks as possible
+    def submit_stage(self, stage, time):
         this_job = stage.job
         self.task_buffer.append(stage)
         # add by cc
         if len(stage.parent_ids) == 0:
-            self.stageIdToAllowedMachineId[stage.id] = range(self.cluster.machine_number)
+            self.stageIdToAllowedMachineId[stage.id] = range(
+                self.cluster.machine_number)
         else:
             tmpList = list()
             for id in stage.parent_ids:
@@ -104,16 +118,19 @@ class Scheduler:
         msg = self.do_allocate(time)
         return msg
 
-    def stage_complete(self, stage): ##upon completion of a stage, check whether any other stage is ready to be submitted. If not, check whether the job is completed
+    # upon completion of a stage, check whether any other stage is ready to be submitted. If not, check whether the job is completed
+    def stage_complete(self, stage):
         self.task_buffer.remove(stage)
-        msg = list() # ready_stage or job (tell the simulator the entire job is done)
+        msg = list()  # ready_stage or job (tell the simulator the entire job is done)
         stage.job.not_completed_stage_ids.remove(stage.id)
         stage.job.completed_stage_ids.append(stage.id)
         self.completed_stage_ids.append(stage.id)
         self.ready_stages.remove(stage)
         if len(stage.job.not_completed_stage_ids) != 0:
-            msg.append(stage.job.stagesDict[stage.job.not_completed_stage_ids[0]])
-            self.ready_stages.append(stage.job.stagesDict[stage.job.not_completed_stage_ids[0]])
+            msg.append(
+                stage.job.stagesDict[stage.job.not_completed_stage_ids[0]])
+            self.ready_stages.append(
+                stage.job.stagesDict[stage.job.not_completed_stage_ids[0]])
         else:
             if len(stage.job.stages) == len(stage.job.completed_stage_ids):
                 msg.append(stage.job)
@@ -125,7 +142,8 @@ class Scheduler:
         self.stageIdToUsedMachineId[stage.id] = tmpMachineList
         machinelist = [task.machine_id for task in stage.taskset]
         machinelist = list(set(machinelist))
-        print "stage complete:", stage.id, "stage tasknum:", len(stage.taskset), "used machine number:", len(machinelist)
+        print("stage complete:", stage.id, "stage tasknum:", len(
+            stage.taskset), "used machine number:", len(machinelist))
         return msg
 
     def handle_job_completion(self, job):
@@ -141,8 +159,9 @@ class Scheduler:
                     if parent_id not in self.completed_stage_ids:
                         ready_flag = False
                         break
-                if ready_flag and stage not in self.ready_stages: # avoid duplicated submission
-                    ready_stages.append(stage) # if all of the parent stages are completed, this stage is ready to be submitted
+                if ready_flag and stage not in self.ready_stages:  # avoid duplicated submission
+                    # if all of the parent stages are completed, this stage is ready to be submitted
+                    ready_stages.append(stage)
         return ready_stages
 
     def search_core_by_task(self, task):
@@ -151,4 +170,3 @@ class Scheduler:
                 if core.running_task == task:
                     return core
         return False
-

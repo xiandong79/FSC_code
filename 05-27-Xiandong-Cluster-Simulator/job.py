@@ -22,17 +22,12 @@ class Job:
         self.fairAlloc = 1.0
         self.minAlloc = 1.0
         self.demand = 1.0
-        self.nDemand = 1.0
 
     def search_stage_by_id(self, stage_id):
         for stage in self.stages:
             if stage.id == stage_id:
                 return stage
         return False
-
-    def re_initialize(self):
-        self.nDemand = self.demand / self.weight
-        self.fairAlloc = 0.0
 
     def reset(self):
         self.not_completed_stage_ids = [stage.id for stage in self.stages]
