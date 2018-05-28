@@ -95,6 +95,7 @@ class Scheduler:
         self.ready_stages.append(job.stages[0])
 
         self.submit_jobs_number += 1
+        print("total submitted_jobs_number", self.submit_jobs_number)
         return [ready_stages]
         # return [EventStageSubmit(time, stage) for stage in ready_stages]
 

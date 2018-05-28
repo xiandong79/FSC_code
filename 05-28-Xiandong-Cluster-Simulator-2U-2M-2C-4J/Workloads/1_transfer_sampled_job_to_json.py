@@ -18,7 +18,7 @@ stage_profile = collections.OrderedDict()
 job_profile = collections.OrderedDict()
 runtime_profile = collections.OrderedDict()
 
-for i in range(200):
+for i in range(4):
     # for i in range(len(d)):
     tmp = d[i].split(',')
 

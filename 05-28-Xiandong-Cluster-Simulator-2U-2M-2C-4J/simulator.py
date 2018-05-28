@@ -1,4 +1,5 @@
 import json
+import time
 from collections import OrderedDict
 from logger import Log
 from job import Job
@@ -191,13 +192,8 @@ class Simulator:
             for new_event in new_events:
                 self.event_queue.put(new_event)
 
-        if self.scheduler.scheduler_type == "isolated":
-            fname = "ExecutionResult/" + str(self.cluster.user_number) + "_" + str(self.cluster.machine_number) + "_" + \
-                self.scheduler.scheduler_type + "_" + ".json"
-        else:
-            fname = "ExecutionResult/" + str(self.cluster.user_number) + "_" + \
-                str(self.cluster.machine_number) + "_" + \
-                self.scheduler.scheduler_type + ".json"
+        fname = "ExecutionResult/" + str(self.cluster.user_number) + "_" + str(
+            self.cluster.machine_number) + "_" + self.scheduler.scheduler_type + "_" + time.strftime("%Y%m%d-%H%M%S") + ".json"
         f = open(fname, 'w')
         json.dump(self.job_execution_profile, f, indent=2, sort_keys=True)
         f.close()

@@ -7,14 +7,14 @@ from math import pow
 import numpy as np
 from user import User
 
-np.random.seed(352)
+np.random.seed(52)
 
 """
 The basic configuration of each simulation
 """
-user_number = 5
-machine_number = 5
-num_core = 100
+user_number = 2
+machine_number = 2
+# num_core = 2
 
 """
 customize part of input data:
@@ -31,18 +31,8 @@ largest_one_per_row = np.amax(preference_value, axis=1)
 preference_value = preference_value / largest_one_per_row[:, None]
 print("normalized preference value: ", preference_value)
 
-# core_per_machine (a 1D list)
-core_per_machine = np.random.multinomial(
-    num_core, [1 / float(machine_number)] * machine_number, size=1)[0]
-print("core_per_machine: ", core_per_machine)
-
 # user_ownership (a 2D list) - test successful
-user_ownership = np.empty([user_number, machine_number])
-for i in range(machine_number):
-    tmp = np.random.multinomial(core_per_machine[i], [
-                                1 / float(user_number)] * user_number, size=1)
-    for j in range(user_number):
-        user_ownership[j][i] = tmp[0][j]
+user_ownership = np.ones((2, 2)).tolist()
 print("user_ownership: ", user_ownership)
 
 """
@@ -54,13 +44,13 @@ json_dir = "./"
 """
 Run this simulation finally
 """
-machines = [Machine(i, core_per_machine[i]) for i in range(0, machine_number)]
+machines = [Machine(i, 2) for i in range(0, machine_number)]
 users = [User(i, user_ownership[i], preference_value[i])
          for i in range(user_number)]
 cluster = Cluster(machines, users)
 simulator = Simulator(cluster, preference_value, json_dir, user_number)
 
-cluster.totalJobNumber = 200
+cluster.totalJobNumber = 4
 simulator.scheduler.scheduler_type = "fair"
 # simulator.scheduler.scheduler_type = "isolated"
 

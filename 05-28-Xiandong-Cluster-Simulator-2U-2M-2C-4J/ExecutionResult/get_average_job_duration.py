@@ -8,10 +8,12 @@ path, filename = os.path.split(full_path)
 for file in os.listdir(path):
     if file.endswith(".json"):
         print("file name: ", str(file))
+    else:
+        continue
     job_execution_profile_path = os.path.join(path, file)
     job_execution_profile = json.load(
         open(job_execution_profile_path, 'r'), object_pairs_hook=OrderedDict)
-    print("job_execution_profile loaded")
+    # print("job_execution_profile loaded")
 
     duration = []
 
@@ -25,5 +27,4 @@ for file in os.listdir(path):
         duration.append(int(average_duration))
 
     print("The average job duration of users are: ", duration)
-# ('The average job duration of users are: ', [760666.9389129861, 761966.593961868, 728216.194590377, 728487.3628016558, 734249.9092337041])
 # ('The average job duration of users are: ', [514393, 1608514, 279656, 744225, 553314])

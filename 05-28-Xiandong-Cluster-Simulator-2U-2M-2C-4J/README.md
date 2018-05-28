@@ -136,10 +136,10 @@ in cluster.py 尝试增加
 #### 步骤二： 用户（all jobs）对于不同类型的机器的使用量 （重点修改了 user.py）
 
 ```
-        # self.alloc = 0.0  # current allocation
-        self.alloc = defaultdict(int)
-        self.ownership = ownership  
-        self.total_ownership = 
+# self.alloc = 0.0  # current allocation
+self.alloc = defaultdict(int)
+self.ownership = ownership  
+self.total_ownership = 
 ```
 
 于是, in cluster.py 继续修改为：
@@ -174,6 +174,49 @@ def do_allocate(self, time):
  if self.cluster.users[x.job.user_id].alloc[machineId] < self.cluster.users[x.job.user_id].ownership[machineId]:
 # revised by xiandong
 # 以判断，用户在此一类机器的上使用量 是否已经。超过用户的ownership。
+```
+
+### 05-28 日志； “测试” - 查错 （log/2u-2m-4c-2j.txt）（log/2u-2m-4c-4j.txt）
+
+背景： 2 User, 2 Machine, 2 core per machine, 4 Job per user
+
+
+/Workloads/2_generate_type_ownership.py 生成 ‘4 job per user’
+
+代码如下： `~Workloads python2 1_transfer_sampled_job_to_json.py`
+
+我修改了 job ”Submit Time" in job.json 使得 job Submit更紧凑一些。
+
+代码如下：`python2 main.py 2>&1 | tee log/log/2u-2m-4c-4j.txt`
+
+在 log 中发现发现问题, 
+1. “用户拿到的资源” 显示的不全面。
+2. “用户拿到的资源”  超过 ownership
+
+
+#### 猜测起因1: 当前一个 job执行之后此用户才能拿到资源？(猜测错误)
+
+
+
+```py
+current_job_index = dict()  # map from user id to its current running job index
+current_job_index[user_index] = 0
+current_job_index[event.job.user_id] = event.job.index
+```
+觉得这里不对? (一个用户可以有多个 job 同时运行吧.)
+可是，检查却没问题？
+
+
+#### 猜测起因2: machine.check_if_vacant. (xiandong尝试修正如下)
+ 
+```py
+# revised by xiandong
+def check_if_vacant(self):
+    self.is_vacant = False
+    for core in self.cores:
+        if core.is_running == False:
+            self.is_vacant = True
+            return
 ```
 
 
