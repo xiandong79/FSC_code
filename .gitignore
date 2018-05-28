@@ -6,7 +6,7 @@
 
 __pycache__/
 
-*_fair.json
+*fair*.json
 *.txt
 
 build/

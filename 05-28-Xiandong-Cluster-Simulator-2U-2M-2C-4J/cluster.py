@@ -31,11 +31,11 @@ class Cluster:
         print("-----before assign, vacant_machine_list: ",
               self.vacant_machine_list, "assign machineId: ", machineId)
         self.machines[machineId].assign_task(task)
-        print("-----after assign, vacant_machine_list: ",
-              self.vacant_machine_list)
         if not self.machines[machineId].is_vacant:
             self.vacant_machine_list.remove(machineId)
             print("----remove machineId happens: ", machineId)
+        print("-----after assign, vacant_machine_list: ",
+              self.vacant_machine_list)
         # revised by xiandong
         self.users[task.stage.job.user_id].alloc[machineId] += 1
         # add by xiandong

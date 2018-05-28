@@ -75,13 +75,16 @@ class Scheduler:
                         # - first check whether the locality wait has been time out
                         if time - task.first_attempt_time > task.timeout:
                             #  time_out = 0, 05-25
-                            for machineId in self.cluster.make_offers():
-                                # - task runtime is prolonged due to poor data locality
-                                # task.runtime *= 1.5
-                                task.runtime *= 1
-                                self.cluster.assign_task(machineId, task, time)
-                                msg.append((task, machineId))
-                                break
+                            if self.cluster.users[task.stage.job.user_id].alloc[machineId] < self.cluster.users[task.stage.job.user_id].ownership[machineId]:
+                                # revised by xiandong
+                                for machineId in self.cluster.make_offers():
+                                    # - task runtime is prolonged due to poor data locality
+                                    # task.runtime *= 1.5
+                                    task.runtime *= 1
+                                    self.cluster.assign_task(
+                                        machineId, task, time)
+                                    msg.append((task, machineId))
+                                    break
                     else:
                         task.first_attempt_time = time
         return msg
