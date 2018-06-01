@@ -26,5 +26,11 @@ for file in os.listdir(path):
         average_duration = total_duration / len(jobs)
         duration.append(int(average_duration))
 
-    print("The average job duration of users are: ", duration)
-# ('The average job duration of users are: ', [514393, 1608514, 279656, 744225, 553314])
+    print("The average job duration of each user is: ", duration)
+    print("The average job duration are: ", sum(duration) / len(duration))
+# ('file name: ', '2U_2M_isolated_initial_20180530-112101.json')
+# ('The average job duration of each user is: ', [93, 42])
+# ('The average job duration are: ', 67)
+# ('file name: ', '2U_2M_isolated_afterMTTC_20180530-112101.json')
+# ('The average job duration of each user is: ', [93, 42])
+# ('The average job duration are: ', 67)

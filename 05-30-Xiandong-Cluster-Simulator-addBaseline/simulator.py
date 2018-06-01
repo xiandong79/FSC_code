@@ -1,7 +1,6 @@
 import json
 import time
 from collections import OrderedDict
-from logger import Log
 from job import Job
 from stage import Stage
 from task import Task
@@ -18,10 +17,10 @@ except ImportError:
 
 class Simulator:
 
-    def __init__(self, cluster, preference_value, json_dir, user_number):
+    def __init__(self, cluster, preference_value, json_dir, user_number, flag="initial"):
+        self.flag = flag
         self.cluster = cluster
         self.preference_value = preference_value
-        self.log = Log()
         self.json_dir = json_dir
         self.cluster = cluster
         self.scheduler = Scheduler(cluster)
@@ -45,25 +44,20 @@ class Simulator:
             stage_profile_path = "Workloads/stage_profile.json"
             self.stage_profile = json.load(
                 open(stage_profile_path, 'r'), object_pairs_hook=OrderedDict)
-            print("stage_profile loaded")
 
             runtime_path = "Workloads/runtime.json"
             self.runtime_profile = json.load(
                 open(runtime_path, 'r'), object_pairs_hook=OrderedDict)
-            print("runtime_profile loaded")
 
             job_path = "Workloads/job.json"
             self.job_profile = json.load(
                 open(job_path, 'r'), object_pairs_hook=OrderedDict)
-            print("job_profile loaded")
             self.generate_job_profile(user_index)
             # as a result, the '3' types of information recorded above would be replaced when each user is loaded.
 
     def run(self):
         runtime = 0
         # the virtual time in the simulator
-        self.log.add('Simulation Starts with %s machines.' %
-                     (len(self.cluster.machines)), 0)
         current_job_index = dict()  # map from user id to its current running job index
         for user_index in range(0, self.user_number):
             current_job_index[user_index] = 0
@@ -169,6 +163,7 @@ class Simulator:
             elif isinstance(event, EventJobComplete):
                 event.job.completion_time = event.time
                 event.job.duration = event.time - event.job.submit_time
+                event.job.queueing_delay = event.job.start_execution_time - event.job.submit_time
                 event.job.execution_time = event.time - event.job.start_execution_time
                 print("time: ", event.time, "-job.user_id", event.job.user_id, "-job.id", event.job.id, " -job.duration",
                       event.job.duration, " -job.alloc ", event.job.alloc)
@@ -179,6 +174,7 @@ class Simulator:
                 # revised by xiandong
                 self.job_execution_profile[event.job.user_id][job_id] = {}
                 self.job_execution_profile[event.job.user_id][job_id]["duration"] = event.job.duration
+                self.job_execution_profile[event.job.user_id][job_id]["queueing_delay"] = event.job.queueing_delay
                 self.job_execution_profile[event.job.user_id][job_id]["execution_time"] = event.job.execution_time
                 # self.job_execution_profile[job_id]["runtimes"] = [[i.runtime, i.machine_id, i.start_time, i.finish_time] for i in event.job.stages[0].taskset]
                 if self.scheduler.scheduler_type == "isolated":
@@ -192,8 +188,8 @@ class Simulator:
             for new_event in new_events:
                 self.event_queue.put(new_event)
 
-        fname = "ExecutionResult/" + str(self.cluster.user_number) + "_" + str(
-            self.cluster.machine_number) + "_" + self.scheduler.scheduler_type + "_" + time.strftime("%Y%m%d-%H%M%S") + ".json"
+        fname = "ExecutionResult/" + str(self.cluster.user_number) + "U_" + str(
+            self.cluster.machine_number) + "M_" + str(self.cluster.total_num_core) + "C_" + self.scheduler.scheduler_type + "_" + self.flag + "_" + time.strftime("%Y%m%d-%H%M%S") + ".json"
         f = open(fname, 'w')
         json.dump(self.job_execution_profile, f, indent=2, sort_keys=True)
         f.close()
@@ -206,7 +202,6 @@ class Simulator:
         job_submit_time = dict()
         job_priority = dict()
         job_weight = dict()
-        print("enter generate_job_profile")
 
         stageIdToParallelism = dict()
         for c_job_id in self.job_profile:
@@ -301,8 +296,8 @@ class Simulator:
         self.job_list[user_id] = sorted(
             self.job_list[user_id], key=lambda job: job.index)  # sort job_list by job_index
         print("finish generate job profile for user " + str(user_id))
-        print("The task number of the user", user_id, "'s first stage of first job: ", len(
-            self.job_list[user_id][0].stages[0].taskset))
+        # print("The task number of the user", user_id, "'s first stage of first job: ", len(
+        #     self.job_list[user_id][0].stages[0].taskset))
 
     def search_runtime(self, stage_id, task_index):
         return self.runtime_profile[str(stage_id)][str(task_index)]['runtime']

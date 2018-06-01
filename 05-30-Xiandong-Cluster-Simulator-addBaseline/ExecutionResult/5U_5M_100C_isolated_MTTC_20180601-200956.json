@@ -1,0 +1,2012 @@
+{
+  "0": {
+    "0": {
+      "alloc": 1.0, 
+      "duration": 42, 
+      "execution_time": 42, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "1": {
+      "alloc": 1.0, 
+      "duration": 39, 
+      "execution_time": 39, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "10": {
+      "alloc": 1.0, 
+      "duration": 287, 
+      "execution_time": 287, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "11": {
+      "alloc": 1.0, 
+      "duration": 1716, 
+      "execution_time": 1716, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "12": {
+      "alloc": 17.0, 
+      "duration": 359.34135503921675, 
+      "execution_time": 359.34135503921675, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "13": {
+      "alloc": 38.0, 
+      "duration": 2206.6694061072108, 
+      "execution_time": 1941.3039859503438, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 265.36542015686689, 
+      "target_alloc": 1.0
+    }, 
+    "14": {
+      "alloc": 8.0, 
+      "duration": 1953.5915090523076, 
+      "execution_time": 170.08655228322641, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1783.5049567690812, 
+      "target_alloc": 1.0
+    }, 
+    "15": {
+      "alloc": 1.0, 
+      "duration": 1912.6115676845352, 
+      "execution_time": 36.447118346405659, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1876.1644493381295, 
+      "target_alloc": 1.0
+    }, 
+    "16": {
+      "alloc": 1.0, 
+      "duration": 2707.1853424760643, 
+      "execution_time": 812.77073912484411, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1894.4146033512202, 
+      "target_alloc": 1.0
+    }, 
+    "17": {
+      "alloc": 1.0, 
+      "duration": 2021.359294650782, 
+      "execution_time": 159.15241677930453, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1862.2068778714774, 
+      "target_alloc": 1.0
+    }, 
+    "18": {
+      "alloc": 1.0, 
+      "duration": 2155.0367268313958, 
+      "execution_time": 44.951445960567071, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2110.0852808708287, 
+      "target_alloc": 1.0
+    }, 
+    "19": {
+      "alloc": 9.0, 
+      "duration": 2378.5790526893497, 
+      "execution_time": 563.96748500481453, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1814.6115676845352, 
+      "target_alloc": 1.0
+    }, 
+    "2": {
+      "alloc": 1.0, 
+      "duration": 160, 
+      "execution_time": 160, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "20": {
+      "alloc": 1.0, 
+      "duration": 4526.8186509067991, 
+      "execution_time": 2423.7333700359704, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2103.0852808708287, 
+      "target_alloc": 1.0
+    }, 
+    "21": {
+      "alloc": 1.0, 
+      "duration": 2179.8391333431609, 
+      "execution_time": 32.802406511765184, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2147.0367268313958, 
+      "target_alloc": 1.0
+    }, 
+    "22": {
+      "alloc": 1.0, 
+      "duration": 2755.9930268856501, 
+      "execution_time": 583.15389354248919, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2172.8391333431609, 
+      "target_alloc": 1.0
+    }, 
+    "23": {
+      "alloc": 100.0, 
+      "duration": 8781.2041165933315, 
+      "execution_time": 6599.3582285891662, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2181.8458880041649, 
+      "target_alloc": 1.0
+    }, 
+    "24": {
+      "alloc": 1.0, 
+      "duration": 8186.3675129724088, 
+      "execution_time": 76.538948527451794, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8109.828564444957, 
+      "target_alloc": 1.0
+    }, 
+    "25": {
+      "alloc": 1.0, 
+      "duration": 8210.7295557987727, 
+      "execution_time": 178.59087989738691, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8032.1386759013858, 
+      "target_alloc": 1.0
+    }, 
+    "26": {
+      "alloc": 11.0, 
+      "duration": 8401.9824579874457, 
+      "execution_time": 331.39666373965338, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8070.5857942477924, 
+      "target_alloc": 1.0
+    }, 
+    "27": {
+      "alloc": 1.0, 
+      "duration": 8370.382922861736, 
+      "execution_time": 94.762507700654169, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8275.6204151610818, 
+      "target_alloc": 1.0
+    }, 
+    "28": {
+      "alloc": 1.0, 
+      "duration": 8659.6539831153186, 
+      "execution_time": 360.8264716294143, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8298.8275114859043, 
+      "target_alloc": 1.0
+    }, 
+    "29": {
+      "alloc": 1.0, 
+      "duration": 8363.6079587981221, 
+      "execution_time": 36.44711834640475, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8327.1608404517174, 
+      "target_alloc": 1.0
+    }, 
+    "3": {
+      "alloc": 1.0, 
+      "duration": 373, 
+      "execution_time": 373, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "30": {
+      "alloc": 1.0, 
+      "duration": 8628.6824785225253, 
+      "execution_time": 315.87502566884905, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8312.8074528536763, 
+      "target_alloc": 1.0
+    }, 
+    "31": {
+      "alloc": 1.0, 
+      "duration": 8213.535339641041, 
+      "execution_time": 159.15241677930499, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8054.382922861736, 
+      "target_alloc": 1.0
+    }, 
+    "32": {
+      "alloc": 1.0, 
+      "duration": 7975.1314974362485, 
+      "execution_time": 46.166349905446623, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7928.9651475308019, 
+      "target_alloc": 1.0
+    }, 
+    "33": {
+      "alloc": 1.0, 
+      "duration": 8392.7863412623956, 
+      "execution_time": 456.80388327494984, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7935.9824579874457, 
+      "target_alloc": 1.0
+    }, 
+    "34": {
+      "alloc": 1.0, 
+      "duration": 8629.7479192144692, 
+      "execution_time": 696.13996041634709, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7933.6079587981221, 
+      "target_alloc": 1.0
+    }, 
+    "35": {
+      "alloc": 1.0, 
+      "duration": 8071.2925694438763, 
+      "execution_time": 198.02934301547066, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7873.2632264284057, 
+      "target_alloc": 1.0
+    }, 
+    "36": {
+      "alloc": 1.0, 
+      "duration": 7850.3877769554238, 
+      "execution_time": 80.183660362092269, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7770.2041165933315, 
+      "target_alloc": 1.0
+    }, 
+    "37": {
+      "alloc": 1.0, 
+      "duration": 7833.5387169715432, 
+      "execution_time": 98.407219535294644, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7735.1314974362485, 
+      "target_alloc": 1.0
+    }, 
+    "38": {
+      "alloc": 1.0, 
+      "duration": 7972.2526706327644, 
+      "execution_time": 139.71395366122124, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7832.5387169715432, 
+      "target_alloc": 1.0
+    }, 
+    "39": {
+      "alloc": 1.0, 
+      "duration": 8120.0464219162077, 
+      "execution_time": 302.5110822751667, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7817.535339641041, 
+      "target_alloc": 1.0
+    }, 
+    "4": {
+      "alloc": 1.0, 
+      "duration": 41, 
+      "execution_time": 41, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "40": {
+      "alloc": 1.0, 
+      "duration": 11874.307337075723, 
+      "execution_time": 4052.9195601202991, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7821.3877769554238, 
+      "target_alloc": 1.0
+    }, 
+    "41": {
+      "alloc": 1.0, 
+      "duration": 8162.9353807111984, 
+      "execution_time": 280.64281126732203, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7882.2925694438763, 
+      "target_alloc": 1.0
+    }, 
+    "42": {
+      "alloc": 31.0, 
+      "duration": 10239.19503756087, 
+      "execution_time": 2346.9423669281059, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7892.2526706327644, 
+      "target_alloc": 1.0
+    }, 
+    "43": {
+      "alloc": 120.0, 
+      "duration": 10651.531743857186, 
+      "execution_time": 730.25247838453652, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 9921.2792654726491, 
+      "target_alloc": 1.0
+    }, 
+    "44": {
+      "alloc": 243.0, 
+      "duration": 12949.187216838242, 
+      "execution_time": 2327.9814181309448, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 10621.205798707297, 
+      "target_alloc": 1.0
+    }, 
+    "45": {
+      "alloc": 1.0, 
+      "duration": 16799.21781816355, 
+      "execution_time": 3916.8503182937184, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 12882.367499869832, 
+      "target_alloc": 1.0
+    }, 
+    "46": {
+      "alloc": 1.0, 
+      "duration": 12806.356314919271, 
+      "execution_time": 37.662022291286121, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 12768.694292627984, 
+      "target_alloc": 1.0
+    }, 
+    "47": {
+      "alloc": 50.0, 
+      "duration": 14031.153648883999, 
+      "execution_time": 1263.5001026753889, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 12767.65354620861, 
+      "target_alloc": 1.0
+    }, 
+    "48": {
+      "alloc": 1.0, 
+      "duration": 13977.793082820819, 
+      "execution_time": 100.83702742505557, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 13876.956055395764, 
+      "target_alloc": 1.0
+    }, 
+    "49": {
+      "alloc": 2.0, 
+      "duration": 13926.243578497739, 
+      "execution_time": 35.324673737502962, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 13890.918904760236, 
+      "target_alloc": 1.0
+    }, 
+    "5": {
+      "alloc": 11.0, 
+      "duration": 68.66202229128578, 
+      "execution_time": 68.66202229128578, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "6": {
+      "alloc": 1.0, 
+      "duration": 246.68271007843344, 
+      "execution_time": 218.68271007843344, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 28, 
+      "target_alloc": 1.0
+    }, 
+    "7": {
+      "alloc": 1.0, 
+      "duration": 50.679332747930971, 
+      "execution_time": 34.017310456645191, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 16.66202229128578, 
+      "target_alloc": 1.0
+    }, 
+    "8": {
+      "alloc": 1.0, 
+      "duration": 47.034620913290439, 
+      "execution_time": 30.372598622004659, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 16.66202229128578, 
+      "target_alloc": 1.0
+    }, 
+    "9": {
+      "alloc": 1.0, 
+      "duration": 168.52501540130902, 
+      "execution_time": 151.86299311002324, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 16.66202229128578, 
+      "target_alloc": 1.0
+    }
+  }, 
+  "1": {
+    "0": {
+      "alloc": 1.0, 
+      "duration": 42, 
+      "execution_time": 42, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "1": {
+      "alloc": 1.0, 
+      "duration": 39, 
+      "execution_time": 39, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "10": {
+      "alloc": 1.0, 
+      "duration": 287, 
+      "execution_time": 287, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "11": {
+      "alloc": 1.0, 
+      "duration": 1716, 
+      "execution_time": 1716, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "12": {
+      "alloc": 17.0, 
+      "duration": 90, 
+      "execution_time": 90, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "13": {
+      "alloc": 38.0, 
+      "duration": 933.8828250191732, 
+      "execution_time": 884.8828250191732, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 49, 
+      "target_alloc": 1.0
+    }, 
+    "14": {
+      "alloc": 8.0, 
+      "duration": 563.01669088296944, 
+      "execution_time": 71.39728963755465, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 491.61940124541479, 
+      "target_alloc": 1.0
+    }, 
+    "15": {
+      "alloc": 1.0, 
+      "duration": 508.21823966150964, 
+      "execution_time": 30.59883841609485, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 477.61940124541479, 
+      "target_alloc": 1.0
+    }, 
+    "16": {
+      "alloc": 1.0, 
+      "duration": 1185.1898995202487, 
+      "execution_time": 696.40053520320271, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 488.78936431704597, 
+      "target_alloc": 1.0
+    }, 
+    "17": {
+      "alloc": 1.0, 
+      "duration": 582.15479049286, 
+      "execution_time": 136.36542617581404, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 445.78936431704597, 
+      "target_alloc": 1.0
+    }, 
+    "18": {
+      "alloc": 1.0, 
+      "duration": 488.75525826281978, 
+      "execution_time": 37.738567379850338, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 451.01669088296944, 
+      "target_alloc": 1.0
+    }, 
+    "19": {
+      "alloc": 9.0, 
+      "duration": 782.31754846679951, 
+      "execution_time": 391.52818414975354, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 390.78936431704597, 
+      "target_alloc": 1.0
+    }, 
+    "2": {
+      "alloc": 1.0, 
+      "duration": 160, 
+      "execution_time": 160, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "20": {
+      "alloc": 1.0, 
+      "duration": 2478.8394455532753, 
+      "execution_time": 2034.8227546703058, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 444.01669088296944, 
+      "target_alloc": 1.0
+    }, 
+    "21": {
+      "alloc": 1.0, 
+      "duration": 470.55564545745483, 
+      "execution_time": 27.538954574485388, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 443.01669088296944, 
+      "target_alloc": 1.0
+    }, 
+    "22": {
+      "alloc": 1.0, 
+      "duration": 925.59810554048659, 
+      "execution_time": 489.58141465751714, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 436.01669088296944, 
+      "target_alloc": 1.0
+    }, 
+    "23": {
+      "alloc": 100.0, 
+      "duration": 3145.5785852254835, 
+      "execution_time": 2746.5618943425143, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 399.01669088296944, 
+      "target_alloc": 1.0
+    }, 
+    "24": {
+      "alloc": 1.0, 
+      "duration": 2466.4105787961325, 
+      "execution_time": 64.257560673799162, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2402.1530181223334, 
+      "target_alloc": 1.0
+    }, 
+    "25": {
+      "alloc": 1.0, 
+      "duration": 2564.3859386926197, 
+      "execution_time": 237.04657007108744, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2327.3393686215322, 
+      "target_alloc": 1.0
+    }, 
+    "26": {
+      "alloc": 11.0, 
+      "duration": 2636.383862910322, 
+      "execution_time": 290.62799831478196, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2345.7558645955401, 
+      "target_alloc": 1.0
+    }, 
+    "27": {
+      "alloc": 1.0, 
+      "duration": 2642.1657513834007, 
+      "execution_time": 125.779812690781, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2516.3859386926197, 
+      "target_alloc": 1.0
+    }, 
+    "28": {
+      "alloc": 1.0, 
+      "duration": 2806.8921870509671, 
+      "execution_time": 302.92850031933858, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2503.9636867316285, 
+      "target_alloc": 1.0
+    }, 
+    "29": {
+      "alloc": 1.0, 
+      "duration": 2539.9218281973799, 
+      "execution_time": 30.598838416094623, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2509.3229897812853, 
+      "target_alloc": 1.0
+    }, 
+    "3": {
+      "alloc": 1.0, 
+      "duration": 373, 
+      "execution_time": 373, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "30": {
+      "alloc": 1.0, 
+      "duration": 2771.4530388791645, 
+      "execution_time": 265.1899329394887, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2506.2631059396758, 
+      "target_alloc": 1.0
+    }, 
+    "31": {
+      "alloc": 1.0, 
+      "duration": 2381.4169882644419, 
+      "execution_time": 133.61492775028091, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2247.802060514161, 
+      "target_alloc": 1.0
+    }, 
+    "32": {
+      "alloc": 1.0, 
+      "duration": 2167.0601212713009, 
+      "execution_time": 39.556383165503121, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2127.5037381057978, 
+      "target_alloc": 1.0
+    }, 
+    "33": {
+      "alloc": 1.0, 
+      "duration": 2510.4272696791018, 
+      "execution_time": 383.50544148172185, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2126.9218281973799, 
+      "target_alloc": 1.0
+    }, 
+    "34": {
+      "alloc": 1.0, 
+      "duration": 2698.4394870669375, 
+      "execution_time": 584.43781374741138, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2114.0016733195262, 
+      "target_alloc": 1.0
+    }, 
+    "35": {
+      "alloc": 1.0, 
+      "duration": 2235.6146650966316, 
+      "execution_time": 166.25368872744866, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2069.3609763691829, 
+      "target_alloc": 1.0
+    }, 
+    "36": {
+      "alloc": 1.0, 
+      "duration": 1995.76331308507, 
+      "execution_time": 68.703191813769081, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1927.0601212713009, 
+      "target_alloc": 1.0
+    }, 
+    "37": {
+      "alloc": 1.0, 
+      "duration": 2002.009057795412, 
+      "execution_time": 84.317553589625277, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1917.6915042057867, 
+      "target_alloc": 1.0
+    }, 
+    "38": {
+      "alloc": 1.0, 
+      "duration": 2114.8284585441661, 
+      "execution_time": 185.44459563384407, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1929.383862910322, 
+      "target_alloc": 1.0
+    }, 
+    "39": {
+      "alloc": 1.0, 
+      "duration": 2331.6936149732019, 
+      "execution_time": 401.5278635898012, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1930.1657513834007, 
+      "target_alloc": 1.0
+    }, 
+    "4": {
+      "alloc": 1.0, 
+      "duration": 41, 
+      "execution_time": 41, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "40": {
+      "alloc": 1.0, 
+      "duration": 5335.9897948268253, 
+      "execution_time": 3402.5908318697448, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1933.3989629570806, 
+      "target_alloc": 1.0
+    }, 
+    "41": {
+      "alloc": 1.0, 
+      "duration": 2153.7105995529632, 
+      "execution_time": 235.61105580392996, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1918.0995437490333, 
+      "target_alloc": 1.0
+    }, 
+    "42": {
+      "alloc": 31.0, 
+      "duration": 2897.3047465189602, 
+      "execution_time": 997.11483775802344, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1900.1899087609368, 
+      "target_alloc": 1.0
+    }, 
+    "43": {
+      "alloc": 120.0, 
+      "duration": 2895.9992154714882, 
+      "execution_time": 411.6434454730479, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2484.3557699984403, 
+      "target_alloc": 1.0
+    }, 
+    "44": {
+      "alloc": 243.0, 
+      "duration": 3808.1085245975846, 
+      "execution_time": 935.33669631285829, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2872.7718282847263, 
+      "target_alloc": 1.0
+    }, 
+    "45": {
+      "alloc": 1.0, 
+      "duration": 6222.5729079318207, 
+      "execution_time": 3356.046824357436, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2866.5260835743848, 
+      "target_alloc": 1.0
+    }, 
+    "46": {
+      "alloc": 1.0, 
+      "duration": 3628.5447047982088, 
+      "execution_time": 32.269681003436745, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3596.2750237947721, 
+      "target_alloc": 1.0
+    }, 
+    "47": {
+      "alloc": 50.0, 
+      "duration": 4092.3745669001873, 
+      "execution_time": 503.09954310541525, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3589.2750237947721, 
+      "target_alloc": 1.0
+    }, 
+    "48": {
+      "alloc": 1.0, 
+      "duration": 4081.6478984601163, 
+      "execution_time": 86.399468493073073, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3995.2484299670432, 
+      "target_alloc": 1.0
+    }, 
+    "49": {
+      "alloc": 2.0, 
+      "duration": 4005.1904513566897, 
+      "execution_time": 23.94202138964647, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3981.2484299670432, 
+      "target_alloc": 1.0
+    }, 
+    "5": {
+      "alloc": 11.0, 
+      "duration": 31, 
+      "execution_time": 31, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "6": {
+      "alloc": 1.0, 
+      "duration": 180, 
+      "execution_time": 180, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "7": {
+      "alloc": 1.0, 
+      "duration": 28, 
+      "execution_time": 28, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "8": {
+      "alloc": 1.0, 
+      "duration": 25, 
+      "execution_time": 25, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "9": {
+      "alloc": 1.0, 
+      "duration": 125, 
+      "execution_time": 125, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }
+  }, 
+  "2": {
+    "0": {
+      "alloc": 1.0, 
+      "duration": 42, 
+      "execution_time": 42, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "1": {
+      "alloc": 1.0, 
+      "duration": 39, 
+      "execution_time": 39, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "10": {
+      "alloc": 1.0, 
+      "duration": 287, 
+      "execution_time": 287, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "11": {
+      "alloc": 1.0, 
+      "duration": 1716, 
+      "execution_time": 1716, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "12": {
+      "alloc": 17.0, 
+      "duration": 90, 
+      "execution_time": 90, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "13": {
+      "alloc": 38.0, 
+      "duration": 771.46547849765375, 
+      "execution_time": 771.46547849765375, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "14": {
+      "alloc": 8.0, 
+      "duration": 449.84264308092656, 
+      "execution_time": 153.10990383209969, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 296.73273924882687, 
+      "target_alloc": 1.0
+    }, 
+    "15": {
+      "alloc": 1.0, 
+      "duration": 400.00423319034007, 
+      "execution_time": 47.128807417939925, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 352.87542577240015, 
+      "target_alloc": 1.0
+    }, 
+    "16": {
+      "alloc": 1.0, 
+      "duration": 1403.8478311924591, 
+      "execution_time": 1050.972405420059, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 352.87542577240015, 
+      "target_alloc": 1.0
+    }, 
+    "17": {
+      "alloc": 1.0, 
+      "duration": 515.67121816407098, 
+      "execution_time": 205.79579239167083, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 309.87542577240015, 
+      "target_alloc": 1.0
+    }, 
+    "18": {
+      "alloc": 1.0, 
+      "duration": 421.11798735999764, 
+      "execution_time": 48.126618918547592, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 372.99136844145005, 
+      "target_alloc": 1.0
+    }, 
+    "19": {
+      "alloc": 9.0, 
+      "duration": 685.02485772641694, 
+      "execution_time": 408.7835028857935, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 276.24135484062344, 
+      "target_alloc": 1.0
+    }, 
+    "2": {
+      "alloc": 1.0, 
+      "duration": 160, 
+      "execution_time": 160, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "20": {
+      "alloc": 1.0, 
+      "duration": 2960.9266317523261, 
+      "execution_time": 2594.9352633108761, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 365.99136844145005, 
+      "target_alloc": 1.0
+    }, 
+    "21": {
+      "alloc": 1.0, 
+      "duration": 400.11079305768749, 
+      "execution_time": 35.119424616237438, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 364.99136844145005, 
+      "target_alloc": 1.0
+    }, 
+    "22": {
+      "alloc": 1.0, 
+      "duration": 982.33669495233744, 
+      "execution_time": 624.34532651088739, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 357.99136844145005, 
+      "target_alloc": 1.0
+    }, 
+    "23": {
+      "alloc": 100.0, 
+      "duration": 3071.1551614811724, 
+      "execution_time": 2750.1637930397223, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 320.99136844145005, 
+      "target_alloc": 1.0
+    }, 
+    "24": {
+      "alloc": 1.0, 
+      "duration": 2370.8834786475104, 
+      "execution_time": 98.970495577673773, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2271.9129830698366, 
+      "target_alloc": 1.0
+    }, 
+    "25": {
+      "alloc": 1.0, 
+      "duration": 2406.9050488453959, 
+      "execution_time": 191.20575624395951, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2215.6992926014364, 
+      "target_alloc": 1.0
+    }, 
+    "26": {
+      "alloc": 11.0, 
+      "duration": 2353.3705295824125, 
+      "execution_time": 162.67123698097612, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2190.6992926014364, 
+      "target_alloc": 1.0
+    }, 
+    "27": {
+      "alloc": 1.0, 
+      "duration": 2315.99060427513, 
+      "execution_time": 101.96674308800175, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2214.0238611871282, 
+      "target_alloc": 1.0
+    }, 
+    "28": {
+      "alloc": 1.0, 
+      "duration": 2585.2818444837508, 
+      "execution_time": 388.25798329662257, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2197.0238611871282, 
+      "target_alloc": 1.0
+    }, 
+    "29": {
+      "alloc": 1.0, 
+      "duration": 2292.4849047989273, 
+      "execution_time": 39.021582906930689, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2253.4633218919967, 
+      "target_alloc": 1.0
+    }, 
+    "3": {
+      "alloc": 1.0, 
+      "duration": 373, 
+      "execution_time": 373, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "30": {
+      "alloc": 1.0, 
+      "duration": 2622.3331429363225, 
+      "execution_time": 408.44966428881207, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2213.8834786475104, 
+      "target_alloc": 1.0
+    }, 
+    "31": {
+      "alloc": 1.0, 
+      "duration": 2137.8575672522597, 
+      "execution_time": 170.39424536026308, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1967.4633218919967, 
+      "target_alloc": 1.0
+    }, 
+    "32": {
+      "alloc": 1.0, 
+      "duration": 1889.8906602407751, 
+      "execution_time": 49.427338348778449, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1840.4633218919967, 
+      "target_alloc": 1.0
+    }, 
+    "33": {
+      "alloc": 1.0, 
+      "duration": 2329.5338276588586, 
+      "execution_time": 489.07050576686197, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1840.4633218919967, 
+      "target_alloc": 1.0
+    }, 
+    "34": {
+      "alloc": 1.0, 
+      "duration": 2568.7755554143687, 
+      "execution_time": 745.31223352237203, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1823.4633218919967, 
+      "target_alloc": 1.0
+    }, 
+    "35": {
+      "alloc": 1.0, 
+      "duration": 2027.1316721815174, 
+      "execution_time": 256.06652030413989, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1771.0651518773775, 
+      "target_alloc": 1.0
+    }, 
+    "36": {
+      "alloc": 1.0, 
+      "duration": 1700.9684330004648, 
+      "execution_time": 86.279551843693753, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1614.688881156771, 
+      "target_alloc": 1.0
+    }, 
+    "37": {
+      "alloc": 1.0, 
+      "duration": 1738.879145174209, 
+      "execution_time": 105.88854089907909, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1632.99060427513, 
+      "target_alloc": 1.0
+    }, 
+    "38": {
+      "alloc": 1.0, 
+      "duration": 1788.067639275494, 
+      "execution_time": 149.58273447656666, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1638.4849047989273, 
+      "target_alloc": 1.0
+    }, 
+    "39": {
+      "alloc": 1.0, 
+      "duration": 1943.8797479018031, 
+      "execution_time": 325.50921831939058, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1618.3705295824125, 
+      "target_alloc": 1.0
+    }, 
+    "4": {
+      "alloc": 1.0, 
+      "duration": 41, 
+      "execution_time": 41, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "40": {
+      "alloc": 1.0, 
+      "duration": 5979.4096955000314, 
+      "execution_time": 4361.0391659176184, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1618.3705295824125, 
+      "target_alloc": 1.0
+    }, 
+    "41": {
+      "alloc": 1.0, 
+      "duration": 1920.3489610353413, 
+      "execution_time": 301.97843145292882, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1618.3705295824125, 
+      "target_alloc": 1.0
+    }, 
+    "42": {
+      "alloc": 31.0, 
+      "duration": 2686.2086508092179, 
+      "execution_time": 1119.8381212268055, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1566.3705295824125, 
+      "target_alloc": 1.0
+    }, 
+    "43": {
+      "alloc": 120.0, 
+      "duration": 3374.3163380850174, 
+      "execution_time": 226.4530097761326, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3147.8633283088848, 
+      "target_alloc": 1.0
+    }, 
+    "44": {
+      "alloc": 243.0, 
+      "duration": 3223.3050552622835, 
+      "execution_time": 1025.0618742083107, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2198.2431810539729, 
+      "target_alloc": 1.0
+    }, 
+    "45": {
+      "alloc": 1.0, 
+      "duration": 8401.1511841109423, 
+      "execution_time": 5064.7758371812715, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3336.3753469296707, 
+      "target_alloc": 1.0
+    }, 
+    "46": {
+      "alloc": 1.0, 
+      "duration": 3258.8840200631348, 
+      "execution_time": 48.69976766520449, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3210.1842523979303, 
+      "target_alloc": 1.0
+    }, 
+    "47": {
+      "alloc": 50.0, 
+      "duration": 3719.0590157380575, 
+      "execution_time": 512.48345551102102, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3206.5755602270365, 
+      "target_alloc": 1.0
+    }, 
+    "48": {
+      "alloc": 1.0, 
+      "duration": 3659.2259219474299, 
+      "execution_time": 107.95971270917471, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3551.2662092382552, 
+      "target_alloc": 1.0
+    }, 
+    "49": {
+      "alloc": 2.0, 
+      "duration": 3571.1798776105334, 
+      "execution_time": 31.217266325543278, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3539.9626112849901, 
+      "target_alloc": 1.0
+    }, 
+    "5": {
+      "alloc": 11.0, 
+      "duration": 31, 
+      "execution_time": 31, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "6": {
+      "alloc": 1.0, 
+      "duration": 180, 
+      "execution_time": 180, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "7": {
+      "alloc": 1.0, 
+      "duration": 28, 
+      "execution_time": 28, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "8": {
+      "alloc": 1.0, 
+      "duration": 25, 
+      "execution_time": 25, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "9": {
+      "alloc": 1.0, 
+      "duration": 125, 
+      "execution_time": 125, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }
+  }, 
+  "3": {
+    "0": {
+      "alloc": 1.0, 
+      "duration": 42, 
+      "execution_time": 42, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "1": {
+      "alloc": 1.0, 
+      "duration": 39, 
+      "execution_time": 39, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "10": {
+      "alloc": 1.0, 
+      "duration": 287, 
+      "execution_time": 287, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "11": {
+      "alloc": 1.0, 
+      "duration": 1716, 
+      "execution_time": 1716, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "12": {
+      "alloc": 17.0, 
+      "duration": 90, 
+      "execution_time": 90, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "13": {
+      "alloc": 38.0, 
+      "duration": 656.07137264917014, 
+      "execution_time": 656.07137264917014, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "14": {
+      "alloc": 8.0, 
+      "duration": 387.39589057047169, 
+      "execution_time": 151.17099674843848, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 236.22489382203321, 
+      "target_alloc": 1.0
+    }, 
+    "15": {
+      "alloc": 1.0, 
+      "duration": 330.20417721377498, 
+      "execution_time": 32.393785017522532, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 297.81039219625245, 
+      "target_alloc": 1.0
+    }, 
+    "16": {
+      "alloc": 1.0, 
+      "duration": 1020.1917980870053, 
+      "execution_time": 722.38140589075283, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 297.81039219625245, 
+      "target_alloc": 1.0
+    }, 
+    "17": {
+      "alloc": 1.0, 
+      "duration": 396.26325343943427, 
+      "execution_time": 141.45286124318181, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 254.81039219625245, 
+      "target_alloc": 1.0
+    }, 
+    "18": {
+      "alloc": 1.0, 
+      "duration": 324.17722867697762, 
+      "execution_time": 39.952334854944411, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 284.22489382203321, 
+      "target_alloc": 1.0
+    }, 
+    "19": {
+      "alloc": 9.0, 
+      "duration": 551.15322736896951, 
+      "execution_time": 351.34283517271706, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 199.81039219625245, 
+      "target_alloc": 1.0
+    }, 
+    "2": {
+      "alloc": 1.0, 
+      "duration": 160, 
+      "execution_time": 160, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "20": {
+      "alloc": 1.0, 
+      "duration": 2471.3639323422276, 
+      "execution_time": 2154.1867036652502, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 317.17722867697762, 
+      "target_alloc": 1.0
+    }, 
+    "21": {
+      "alloc": 1.0, 
+      "duration": 362.4176599552045, 
+      "execution_time": 29.154406515770233, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 333.26325343943427, 
+      "target_alloc": 1.0
+    }, 
+    "22": {
+      "alloc": 1.0, 
+      "duration": 873.71822023556524, 
+      "execution_time": 518.30056028036074, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 355.4176599552045, 
+      "target_alloc": 1.0
+    }, 
+    "23": {
+      "alloc": 100.0, 
+      "duration": 2640.976524346584, 
+      "execution_time": 2308.5267367025176, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 332.44978764406642, 
+      "target_alloc": 1.0
+    }, 
+    "24": {
+      "alloc": 1.0, 
+      "duration": 1963.3855615233497, 
+      "execution_time": 92.385325101119179, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1871.0002364222305, 
+      "target_alloc": 1.0
+    }, 
+    "25": {
+      "alloc": 1.0, 
+      "duration": 2007.5659949915089, 
+      "execution_time": 215.56575856927839, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1792.0002364222305, 
+      "target_alloc": 1.0
+    }, 
+    "26": {
+      "alloc": 11.0, 
+      "duration": 2031.5946932690081, 
+      "execution_time": 242.99761435356777, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1788.5970789154403, 
+      "target_alloc": 1.0
+    }, 
+    "27": {
+      "alloc": 1.0, 
+      "duration": 1979.3960600310893, 
+      "execution_time": 84.223841045558856, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1895.1722189855304, 
+      "target_alloc": 1.0
+    }, 
+    "28": {
+      "alloc": 1.0, 
+      "duration": 2209.6686189981779, 
+      "execution_time": 320.69847167347325, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1888.9701473247046, 
+      "target_alloc": 1.0
+    }, 
+    "29": {
+      "alloc": 1.0, 
+      "duration": 1915.3130241374392, 
+      "execution_time": 32.393785017522532, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1882.9192391199167, 
+      "target_alloc": 1.0
+    }, 
+    "3": {
+      "alloc": 1.0, 
+      "duration": 373, 
+      "execution_time": 373, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "30": {
+      "alloc": 1.0, 
+      "duration": 2196.0591609559679, 
+      "execution_time": 280.74613681852861, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1915.3130241374392, 
+      "target_alloc": 1.0
+    }, 
+    "31": {
+      "alloc": 1.0, 
+      "duration": 1783.2530645959223, 
+      "execution_time": 141.45286124318181, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1641.8002033527405, 
+      "target_alloc": 1.0
+    }, 
+    "32": {
+      "alloc": 1.0, 
+      "duration": 1572.2904767985333, 
+      "execution_time": 55.724481807024404, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1516.5659949915089, 
+      "target_alloc": 1.0
+    }, 
+    "33": {
+      "alloc": 1.0, 
+      "duration": 1921.8821017396072, 
+      "execution_time": 406.00210555294916, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1515.879996186658, 
+      "target_alloc": 1.0
+    }, 
+    "34": {
+      "alloc": 1.0, 
+      "duration": 2347.1646919509835, 
+      "execution_time": 840.26652830065586, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1506.8981636503277, 
+      "target_alloc": 1.0
+    }, 
+    "35": {
+      "alloc": 1.0, 
+      "duration": 1632.4022919596287, 
+      "execution_time": 176.00623192853936, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1456.3960600310893, 
+      "target_alloc": 1.0
+    }, 
+    "36": {
+      "alloc": 1.0, 
+      "duration": 1422.3793195654189, 
+      "execution_time": 96.784626296410806, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1325.5946932690081, 
+      "target_alloc": 1.0
+    }, 
+    "37": {
+      "alloc": 1.0, 
+      "duration": 1444.3758255418757, 
+      "execution_time": 118.78113227286758, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1325.5946932690081, 
+      "target_alloc": 1.0
+    }, 
+    "38": {
+      "alloc": 1.0, 
+      "duration": 1493.2345724218449, 
+      "execution_time": 168.63987915283678, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1324.5946932690081, 
+      "target_alloc": 1.0
+    }, 
+    "39": {
+      "alloc": 1.0, 
+      "duration": 1655.232347987665, 
+      "execution_time": 268.86841564543738, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1386.3639323422276, 
+      "target_alloc": 1.0
+    }, 
+    "4": {
+      "alloc": 1.0, 
+      "duration": 41, 
+      "execution_time": 41, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "40": {
+      "alloc": 1.0, 
+      "duration": 6195.3134059625627, 
+      "execution_time": 4892.0229291640298, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1303.2904767985333, 
+      "target_alloc": 1.0
+    }, 
+    "41": {
+      "alloc": 1.0, 
+      "duration": 1635.3408853064452, 
+      "execution_time": 338.74619203743714, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1296.5946932690081, 
+      "target_alloc": 1.0
+    }, 
+    "42": {
+      "alloc": 31.0, 
+      "duration": 2189.3691962246007, 
+      "execution_time": 854.12131078074253, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1335.2478854438582, 
+      "target_alloc": 1.0
+    }, 
+    "43": {
+      "alloc": 120.0, 
+      "duration": 2187.6738000544187, 
+      "execution_time": 392.87043837225383, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1794.8033616821649, 
+      "target_alloc": 1.0
+    }, 
+    "44": {
+      "alloc": 243.0, 
+      "duration": 2927.3927859926644, 
+      "execution_time": 769.87770917599119, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2157.5150768166732, 
+      "target_alloc": 1.0
+    }, 
+    "45": {
+      "alloc": 1.0, 
+      "duration": 5249.0606373839864, 
+      "execution_time": 3481.252096549757, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1767.8085408342295, 
+      "target_alloc": 1.0
+    }, 
+    "46": {
+      "alloc": 1.0, 
+      "duration": 2772.9969788209164, 
+      "execution_time": 45.45944568467803, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2727.5375331362384, 
+      "target_alloc": 1.0
+    }, 
+    "47": {
+      "alloc": 50.0, 
+      "duration": 3173.6655562512515, 
+      "execution_time": 449.36510704901593, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2724.3004492022355, 
+      "target_alloc": 1.0
+    }, 
+    "48": {
+      "alloc": 1.0, 
+      "duration": 3101.3267949619167, 
+      "execution_time": 89.62280521514549, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 3011.7039897467712, 
+      "target_alloc": 1.0
+    }, 
+    "49": {
+      "alloc": 2.0, 
+      "duration": 3026.8583962625407, 
+      "execution_time": 28.963745935547195, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 2997.8946503269935, 
+      "target_alloc": 1.0
+    }, 
+    "5": {
+      "alloc": 11.0, 
+      "duration": 31, 
+      "execution_time": 31, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "6": {
+      "alloc": 1.0, 
+      "duration": 180, 
+      "execution_time": 180, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "7": {
+      "alloc": 1.0, 
+      "duration": 28, 
+      "execution_time": 28, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "8": {
+      "alloc": 1.0, 
+      "duration": 25, 
+      "execution_time": 25, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "9": {
+      "alloc": 1.0, 
+      "duration": 125, 
+      "execution_time": 125, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }
+  }, 
+  "4": {
+    "0": {
+      "alloc": 1.0, 
+      "duration": 42, 
+      "execution_time": 42, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "1": {
+      "alloc": 1.0, 
+      "duration": 39, 
+      "execution_time": 39, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "10": {
+      "alloc": 1.0, 
+      "duration": 287, 
+      "execution_time": 287, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "11": {
+      "alloc": 1.0, 
+      "duration": 1716, 
+      "execution_time": 1716, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "12": {
+      "alloc": 17.0, 
+      "duration": 90, 
+      "execution_time": 90, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "13": {
+      "alloc": 38.0, 
+      "duration": 1474.176189604108, 
+      "execution_time": 1425.176189604108, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 49, 
+      "target_alloc": 1.0
+    }, 
+    "14": {
+      "alloc": 8.0, 
+      "duration": 854.32612796229864, 
+      "execution_time": 188.60960999214558, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 665.71651797015306, 
+      "target_alloc": 1.0
+    }, 
+    "15": {
+      "alloc": 1.0, 
+      "duration": 880.74247296061549, 
+      "execution_time": 40.416344998316845, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 840.32612796229864, 
+      "target_alloc": 1.0
+    }, 
+    "16": {
+      "alloc": 1.0, 
+      "duration": 2552.3209347365428, 
+      "execution_time": 1758.2328399344888, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 794.088094802054, 
+      "target_alloc": 1.0
+    }, 
+    "17": {
+      "alloc": 1.0, 
+      "duration": 973.81083445494914, 
+      "execution_time": 176.4847064926505, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 797.32612796229864, 
+      "target_alloc": 1.0
+    }, 
+    "18": {
+      "alloc": 1.0, 
+      "duration": 792.17295346022274, 
+      "execution_time": 49.846825497924101, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 742.32612796229864, 
+      "target_alloc": 1.0
+    }, 
+    "19": {
+      "alloc": 9.0, 
+      "duration": 1650.9674650301054, 
+      "execution_time": 908.64133706780672, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 742.32612796229864, 
+      "target_alloc": 1.0
+    }, 
+    "2": {
+      "alloc": 1.0, 
+      "duration": 160, 
+      "execution_time": 160, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "20": {
+      "alloc": 1.0, 
+      "duration": 5917.5110015020928, 
+      "execution_time": 4805.9297380279677, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1111.5812634741251, 
+      "target_alloc": 1.0
+    }, 
+    "21": {
+      "alloc": 1.0, 
+      "duration": 1175.6239215827743, 
+      "execution_time": 65.042658108649221, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1110.5812634741251, 
+      "target_alloc": 1.0
+    }, 
+    "22": {
+      "alloc": 1.0, 
+      "duration": 2259.8951854056663, 
+      "execution_time": 1156.3139219315412, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1103.5812634741251, 
+      "target_alloc": 1.0
+    }, 
+    "23": {
+      "alloc": 100.0, 
+      "duration": 5805.0593560560865, 
+      "execution_time": 4738.4780925819614, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 1066.5812634741251, 
+      "target_alloc": 1.0
+    }, 
+    "24": {
+      "alloc": 1.0, 
+      "duration": 4869.1107142799074, 
+      "execution_time": 84.874324496465306, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4784.2363897834421, 
+      "target_alloc": 1.0
+    }, 
+    "25": {
+      "alloc": 1.0, 
+      "duration": 4912.7069607748017, 
+      "execution_time": 198.04009049175238, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4714.6668702830493, 
+      "target_alloc": 1.0
+    }, 
+    "26": {
+      "alloc": 11.0, 
+      "duration": 5247.115685633562, 
+      "execution_time": 525.15923954390837, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4721.9564460896536, 
+      "target_alloc": 1.0
+    }, 
+    "27": {
+      "alloc": 1.0, 
+      "duration": 5123.3715687640306, 
+      "execution_time": 105.08249699562384, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 5018.2890717684068, 
+      "target_alloc": 1.0
+    }, 
+    "28": {
+      "alloc": 1.0, 
+      "duration": 5484.9380002482667, 
+      "execution_time": 400.12181548333774, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 5084.8161847649289, 
+      "target_alloc": 1.0
+    }, 
+    "29": {
+      "alloc": 1.0, 
+      "duration": 5114.9269527631332, 
+      "execution_time": 40.416344998317072, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 5074.5106077648161, 
+      "target_alloc": 1.0
+    }, 
+    "3": {
+      "alloc": 1.0, 
+      "duration": 373, 
+      "execution_time": 373, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "30": {
+      "alloc": 1.0, 
+      "duration": 5443.646558749444, 
+      "execution_time": 350.27498998541341, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 5093.3715687640306, 
+      "target_alloc": 1.0
+    }, 
+    "31": {
+      "alloc": 1.0, 
+      "duration": 5127.3335333330833, 
+      "execution_time": 315.57734119381621, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4811.7561921392671, 
+      "target_alloc": 1.0
+    }, 
+    "32": {
+      "alloc": 1.0, 
+      "duration": 4739.6488747615622, 
+      "execution_time": 51.194036997868352, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4688.4548377636938, 
+      "target_alloc": 1.0
+    }, 
+    "33": {
+      "alloc": 1.0, 
+      "duration": 5678.6730625379087, 
+      "execution_time": 988.18467535929449, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4690.4883871786142, 
+      "target_alloc": 1.0
+    }, 
+    "34": {
+      "alloc": 1.0, 
+      "duration": 5451.4902962312099, 
+      "execution_time": 771.9521894678528, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4679.5381067633571, 
+      "target_alloc": 1.0
+    }, 
+    "35": {
+      "alloc": 1.0, 
+      "duration": 5046.3601107428503, 
+      "execution_time": 428.38856937118362, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4617.9715413716667, 
+      "target_alloc": 1.0
+    }, 
+    "36": {
+      "alloc": 1.0, 
+      "duration": 4550.8429117594305, 
+      "execution_time": 88.915958996297377, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4461.9269527631332, 
+      "target_alloc": 1.0
+    }, 
+    "37": {
+      "alloc": 1.0, 
+      "duration": 4683.7701459088503, 
+      "execution_time": 212.88020931942265, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4470.8899365894276, 
+      "target_alloc": 1.0
+    }, 
+    "38": {
+      "alloc": 1.0, 
+      "duration": 4786.2088755905997, 
+      "execution_time": 302.23733421893303, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4483.9715413716667, 
+      "target_alloc": 1.0
+    }, 
+    "39": {
+      "alloc": 1.0, 
+      "duration": 4857.2985752454606, 
+      "execution_time": 335.45566348603006, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4521.8429117594305, 
+      "target_alloc": 1.0
+    }, 
+    "4": {
+      "alloc": 1.0, 
+      "duration": 41, 
+      "execution_time": 41, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "40": {
+      "alloc": 1.0, 
+      "duration": 8964.9464385744013, 
+      "execution_time": 4494.2975638128391, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4470.6488747615622, 
+      "target_alloc": 1.0
+    }, 
+    "41": {
+      "alloc": 1.0, 
+      "duration": 5068.5917605631166, 
+      "execution_time": 556.47607492955467, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4512.115685633562, 
+      "target_alloc": 1.0
+    }, 
+    "42": {
+      "alloc": 31.0, 
+      "duration": 6615.9336068801786, 
+      "execution_time": 2013.1634609713283, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 4602.7701459088503, 
+      "target_alloc": 1.0
+    }, 
+    "43": {
+      "alloc": 120.0, 
+      "duration": 8016.622399413638, 
+      "execution_time": 413.55127651662406, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7603.071122897014, 
+      "target_alloc": 1.0
+    }, 
+    "44": {
+      "alloc": 243.0, 
+      "duration": 7742.7923884637421, 
+      "execution_time": 2115.09088219978, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 5627.7015062639621, 
+      "target_alloc": 1.0
+    }, 
+    "45": {
+      "alloc": 1.0, 
+      "duration": 12302.613841432907, 
+      "execution_time": 4343.409875819123, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7959.203965613784, 
+      "target_alloc": 1.0
+    }, 
+    "46": {
+      "alloc": 1.0, 
+      "duration": 7913.2166071252304, 
+      "execution_time": 81.472672702495402, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7831.743934422735, 
+      "target_alloc": 1.0
+    }, 
+    "47": {
+      "alloc": 50.0, 
+      "duration": 8788.1961837688632, 
+      "execution_time": 949.14101091880912, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7839.0551728500541, 
+      "target_alloc": 1.0
+    }, 
+    "48": {
+      "alloc": 1.0, 
+      "duration": 8029.3651725012878, 
+      "execution_time": 199.94594900066295, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 7829.4192235006249, 
+      "target_alloc": 1.0
+    }, 
+    "49": {
+      "alloc": 2.0, 
+      "duration": 8542.933399382553, 
+      "execution_time": 72.269620120721811, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 8470.6637792618312, 
+      "target_alloc": 1.0
+    }, 
+    "5": {
+      "alloc": 11.0, 
+      "duration": 31, 
+      "execution_time": 31, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "6": {
+      "alloc": 1.0, 
+      "duration": 180, 
+      "execution_time": 180, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "7": {
+      "alloc": 1.0, 
+      "duration": 28, 
+      "execution_time": 28, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "8": {
+      "alloc": 1.0, 
+      "duration": 25, 
+      "execution_time": 25, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }, 
+    "9": {
+      "alloc": 1.0, 
+      "duration": 125, 
+      "execution_time": 125, 
+      "fair_alloc": 1.0, 
+      "queueing_delay": 0, 
+      "target_alloc": 1.0
+    }
+  }
+}

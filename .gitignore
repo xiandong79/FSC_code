@@ -8,6 +8,7 @@ __pycache__/
 
 *fair*.json
 *.txt
+*.log
 
 build/
 dist/

@@ -19,7 +19,7 @@ class Scheduler:
         self.stageIdToStage = dict()
 
         self.pending_stages = list()
-        self.scheduler_type = "fair"
+        self.scheduler_type = "isolated"
         # self.taskIdToAllowedMachineId = dict()
 
     def check_waiting(self):
@@ -30,7 +30,7 @@ class Scheduler:
             return False
 
     def sort_tasks(self):
-        if self.scheduler_type == "fair":
+        if self.scheduler_type == "isolated":
             # - fair scheduler: preferentially serve the job starved most
             # self.task_buffer.sort(key=lambda x: x.job.alloc / x.job.weight)
             # revised by xiandong

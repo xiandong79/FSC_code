@@ -18,7 +18,7 @@ stage_profile = collections.OrderedDict()
 job_profile = collections.OrderedDict()
 runtime_profile = collections.OrderedDict()
 
-for i in range(4):
+for i in range(50):
     # for i in range(len(d)):
     tmp = d[i].split(',')
 
@@ -32,7 +32,7 @@ for i in range(4):
     job_id = i
     submitTime = int(tmp[2])
     job_profile[job_id] = {}
-    job_profile[job_id]["Submit Time"] = submitTime
+    job_profile[job_id]["Submit Time"] = int(submitTime / 100)
     job_profile[job_id]["User ID"] = tmp[1]
     job_profile[job_id]["Priority"] = 1
     job_profile[job_id]["Weight"] = 1

@@ -12,6 +12,7 @@ class Cluster:
         self.machines = machines
         self.users = users  # add by xiandong
         self.user_number = len(users)
+        self.total_num_core = 0
         self.running_jobs = list()
         self.finished_jobs = list()
         self.is_vacant = True

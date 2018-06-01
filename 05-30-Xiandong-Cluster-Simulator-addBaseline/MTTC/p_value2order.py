@@ -9,11 +9,11 @@ normalized_preference_value = [[0.98702275,  0.63509794,  0.26203528,  0.1139936
                                 0.78566336,  0.6554457,  1.],
                                [0.3398018,  1.,  0.80624623,  0.70279259,  0.9575109]]
 core_per_machine = [16, 18, 25, 22, 19]
-user_ownership = [[5.,   6.,  10.,   2.,   5.],
-                  [3.,   2.,   5.,   8.,   3.],
-                  [3.,   5.,   6.,   7.,   6.],
-                  [3.,   4.,   2.,   1.,   1.],
-                  [2.,   1.,   2.,   4.,   4.]]
+initial_ownership = [[5.,   6.,  10.,   2.,   5.],
+                     [3.,   2.,   5.,   8.,   3.],
+                     [3.,   5.,   6.,   7.,   6.],
+                     [3.,   4.,   2.,   1.,   1.],
+                     [2.,   1.,   2.,   4.,   4.]]
 
 # preference_value_index = []
 # for preference_value in normalized_preference_value:
@@ -25,9 +25,9 @@ user_ownership = [[5.,   6.,  10.,   2.,   5.],
 # print preference_value_index
 
 
-preference_value_index = []
+preference_order = []
 normalized_preference_value = np.array(normalized_preference_value)
 for a in normalized_preference_value:
-    preference_value_index.append(a.argsort()[::-1].tolist())
+    preference_order.append(a.argsort()[::-1].tolist())
 
-print preference_value_index
+print preference_order
