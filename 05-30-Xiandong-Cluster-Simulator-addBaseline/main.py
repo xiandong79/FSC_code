@@ -53,32 +53,12 @@ for i in range(machine_number):
         initial_ownership[j][i] = tmp[0][j]
 print("initial_ownership: ", initial_ownership)
 
-# initial_ownership but if normalized_preference_value <= threshold, initial_ownership = 0.
-Choosy_ownership = initial_ownership
-Choosy_ownership[normalized_preference_value <= 0.2] = 0
-
-print("Choosy_ownership: ", Choosy_ownership)
-
-Choosy_idle_resource = Choosy_ownership
-current_resource = np.sum(Choosy_idle_resource, axis=0)
-idle_resource = core_per_machine - current_resource
-print("idle_resource: ", idle_resource)
-
-Choosy_idle_resource[Choosy_idle_resource == 0] = num_core
-
-for i in range(len(idle_resource)):
-    while idle_resource[i] > 0:
-        Choosy_idle_resource[Choosy_ownership.argmin(0)[i]][i] += 1
-        idle_resource[i] -= 1
-Choosy_idle_resource[Choosy_idle_resource == num_core] = 0
-print("Choosy_idle_resource: ", Choosy_idle_resource)
 
 # mttc_allocation
 start_time = datetime.now()
 mttc_allocation = MTTC(user_number, machine_number, preference_order,
                        initial_ownership).topTradingCycles()
 end_time = datetime.now()
-print("The overhead of MTTC is: ", end_time - start_time)
 print("mttc_allocation =", mttc_allocation)
 
 """
@@ -107,6 +87,13 @@ print("finish")
 """
 Run this simulation with initial_ownership but if abandon the machines if normalized_preference_value <= 0.3. 
 """
+
+# initial_ownership but if normalized_preference_value <= threshold, initial_ownership = 0.
+Choosy_ownership = initial_ownership
+Choosy_ownership[normalized_preference_value <= 0.2] = 0
+
+print("Choosy_ownership: ", Choosy_ownership)
+
 machines = [Machine(i, core_per_machine[i]) for i in range(0, machine_number)]
 users = [User(i, Choosy_ownership[i], preference_value[i])
          for i in range(user_number)]
@@ -124,6 +111,21 @@ print("finish")
 """
 Run this simulation with initial_ownership but if abandon the machines if normalized_preference_value <= 0.3.  And receive the Choosy_idle_resource
 """
+
+Choosy_idle_resource = Choosy_ownership
+current_resource = np.sum(Choosy_idle_resource, axis=0)
+idle_resource = core_per_machine - current_resource
+print("idle_resource: ", idle_resource)
+
+Choosy_idle_resource[Choosy_idle_resource == 0] = num_core
+
+for i in range(len(idle_resource)):
+    while idle_resource[i] > 0:
+        Choosy_idle_resource[Choosy_ownership.argmin(0)[i]][i] += 1
+        idle_resource[i] -= 1
+Choosy_idle_resource[Choosy_idle_resource == num_core] = 0
+print("Choosy_idle_resource: ", Choosy_idle_resource)
+
 machines = [Machine(i, core_per_machine[i]) for i in range(0, machine_number)]
 users = [User(i, Choosy_idle_resource[i], preference_value[i])
          for i in range(user_number)]
@@ -155,4 +157,5 @@ simulator.scheduler.scheduler_type = "isolated"
 
 simulator.run()
 print("finish")
+print("The overhead of MTTC is: ", end_time - start_time)
 print("All 4 simulation finish")

@@ -29,14 +29,14 @@ class Cluster:
     def assign_task(self, machineId, task, time):
         task.stage.not_submitted_tasks.remove(task)
         task.machine_id = machineId
-        print("-----before assign, vacant_machine_list: ",
-              self.vacant_machine_list, "assign machineId: ", machineId)
+        # print("-----before assign, vacant_machine_list: ",
+        #       self.vacant_machine_list, "assign machineId: ", machineId)
         self.machines[machineId].assign_task(task)
         if not self.machines[machineId].is_vacant:
             self.vacant_machine_list.remove(machineId)
-            print("----remove machineId happens: ", machineId)
-        print("-----after assign, vacant_machine_list: ",
-              self.vacant_machine_list)
+            # print("----remove machineId happens: ", machineId)
+        # print("-----after assign, vacant_machine_list: ",
+        #       self.vacant_machine_list)
         # revised by xiandong
         self.users[task.stage.job.user_id].alloc[machineId] += 1
         # add by xiandong

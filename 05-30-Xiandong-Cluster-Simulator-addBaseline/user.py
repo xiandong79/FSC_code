@@ -11,7 +11,7 @@ class User:
         self.alloc = defaultdict(int)
         self.ownership = ownership
         # a numpy.ndarray, self.ownership[type]=  num_machine
-        # print("--------: ", self.ownership)
+        print("--------: ", self.ownership)
         self.total_ownership = np.sum(self.ownership)
         # print("--------: ", self.total_ownership)
         self.preference_value = preference_value

@@ -298,5 +298,305 @@
     "Priority": 1, 
     "User ID": "13", 
     "Weight": 1
+  }, 
+  "50": {
+    "Submit Time": 2111, 
+    "Priority": 1, 
+    "User ID": "16", 
+    "Weight": 1
+  }, 
+  "51": {
+    "Submit Time": 2207, 
+    "Priority": 1, 
+    "User ID": "1", 
+    "Weight": 1
+  }, 
+  "52": {
+    "Submit Time": 2207, 
+    "Priority": 1, 
+    "User ID": "2", 
+    "Weight": 1
+  }, 
+  "53": {
+    "Submit Time": 2595, 
+    "Priority": 1, 
+    "User ID": "20", 
+    "Weight": 1
+  }, 
+  "54": {
+    "Submit Time": 2633, 
+    "Priority": 1, 
+    "User ID": "19", 
+    "Weight": 1
+  }, 
+  "55": {
+    "Submit Time": 2650, 
+    "Priority": 1, 
+    "User ID": "6", 
+    "Weight": 1
+  }, 
+  "56": {
+    "Submit Time": 2693, 
+    "Priority": 1, 
+    "User ID": "17", 
+    "Weight": 1
+  }, 
+  "57": {
+    "Submit Time": 2700, 
+    "Priority": 1, 
+    "User ID": "1", 
+    "Weight": 1
+  }, 
+  "58": {
+    "Submit Time": 2700, 
+    "Priority": 1, 
+    "User ID": "7", 
+    "Weight": 1
+  }, 
+  "59": {
+    "Submit Time": 2700, 
+    "Priority": 1, 
+    "User ID": "18", 
+    "Weight": 1
+  }, 
+  "60": {
+    "Submit Time": 2798, 
+    "Priority": 1, 
+    "User ID": "13", 
+    "Weight": 1
+  }, 
+  "61": {
+    "Submit Time": 2798, 
+    "Priority": 1, 
+    "User ID": "12", 
+    "Weight": 1
+  }, 
+  "62": {
+    "Submit Time": 2822, 
+    "Priority": 1, 
+    "User ID": "19", 
+    "Weight": 1
+  }, 
+  "63": {
+    "Submit Time": 2843, 
+    "Priority": 1, 
+    "User ID": "15", 
+    "Weight": 1
+  }, 
+  "64": {
+    "Submit Time": 2843, 
+    "Priority": 1, 
+    "User ID": "9", 
+    "Weight": 1
+  }, 
+  "65": {
+    "Submit Time": 2908, 
+    "Priority": 1, 
+    "User ID": "18", 
+    "Weight": 1
+  }, 
+  "66": {
+    "Submit Time": 2908, 
+    "Priority": 1, 
+    "User ID": "1", 
+    "Weight": 1
+  }, 
+  "67": {
+    "Submit Time": 2994, 
+    "Priority": 1, 
+    "User ID": "17", 
+    "Weight": 1
+  }, 
+  "68": {
+    "Submit Time": 3012, 
+    "Priority": 1, 
+    "User ID": "5", 
+    "Weight": 1
+  }, 
+  "69": {
+    "Submit Time": 3066, 
+    "Priority": 1, 
+    "User ID": "18", 
+    "Weight": 1
+  }, 
+  "70": {
+    "Submit Time": 3066, 
+    "Priority": 1, 
+    "User ID": "14", 
+    "Weight": 1
+  }, 
+  "71": {
+    "Submit Time": 3066, 
+    "Priority": 1, 
+    "User ID": "2", 
+    "Weight": 1
+  }, 
+  "72": {
+    "Submit Time": 3154, 
+    "Priority": 1, 
+    "User ID": "12", 
+    "Weight": 1
+  }, 
+  "73": {
+    "Submit Time": 3162, 
+    "Priority": 1, 
+    "User ID": "18", 
+    "Weight": 1
+  }, 
+  "74": {
+    "Submit Time": 3162, 
+    "Priority": 1, 
+    "User ID": "17", 
+    "Weight": 1
+  }, 
+  "75": {
+    "Submit Time": 3307, 
+    "Priority": 1, 
+    "User ID": "16", 
+    "Weight": 1
+  }, 
+  "76": {
+    "Submit Time": 3307, 
+    "Priority": 1, 
+    "User ID": "12", 
+    "Weight": 1
+  }, 
+  "77": {
+    "Submit Time": 3315, 
+    "Priority": 1, 
+    "User ID": "12", 
+    "Weight": 1
+  }, 
+  "78": {
+    "Submit Time": 3315, 
+    "Priority": 1, 
+    "User ID": "18", 
+    "Weight": 1
+  }, 
+  "79": {
+    "Submit Time": 3315, 
+    "Priority": 1, 
+    "User ID": "20", 
+    "Weight": 1
+  }, 
+  "80": {
+    "Submit Time": 3332, 
+    "Priority": 1, 
+    "User ID": "20", 
+    "Weight": 1
+  }, 
+  "81": {
+    "Submit Time": 3525, 
+    "Priority": 1, 
+    "User ID": "15", 
+    "Weight": 1
+  }, 
+  "82": {
+    "Submit Time": 3525, 
+    "Priority": 1, 
+    "User ID": "1", 
+    "Weight": 1
+  }, 
+  "83": {
+    "Submit Time": 3533, 
+    "Priority": 1, 
+    "User ID": "8", 
+    "Weight": 1
+  }, 
+  "84": {
+    "Submit Time": 3556, 
+    "Priority": 1, 
+    "User ID": "6", 
+    "Weight": 1
+  }, 
+  "85": {
+    "Submit Time": 3563, 
+    "Priority": 1, 
+    "User ID": "19", 
+    "Weight": 1
+  }, 
+  "86": {
+    "Submit Time": 3563, 
+    "Priority": 1, 
+    "User ID": "3", 
+    "Weight": 1
+  }, 
+  "87": {
+    "Submit Time": 3592, 
+    "Priority": 1, 
+    "User ID": "18", 
+    "Weight": 1
+  }, 
+  "88": {
+    "Submit Time": 3592, 
+    "Priority": 1, 
+    "User ID": "9", 
+    "Weight": 1
+  }, 
+  "89": {
+    "Submit Time": 3718, 
+    "Priority": 1, 
+    "User ID": "3", 
+    "Weight": 1
+  }, 
+  "90": {
+    "Submit Time": 3718, 
+    "Priority": 1, 
+    "User ID": "1", 
+    "Weight": 1
+  }, 
+  "91": {
+    "Submit Time": 3755, 
+    "Priority": 1, 
+    "User ID": "1", 
+    "Weight": 1
+  }, 
+  "92": {
+    "Submit Time": 3982, 
+    "Priority": 1, 
+    "User ID": "9", 
+    "Weight": 1
+  }, 
+  "93": {
+    "Submit Time": 4126, 
+    "Priority": 1, 
+    "User ID": "9", 
+    "Weight": 1
+  }, 
+  "94": {
+    "Submit Time": 4214, 
+    "Priority": 1, 
+    "User ID": "20", 
+    "Weight": 1
+  }, 
+  "95": {
+    "Submit Time": 4241, 
+    "Priority": 1, 
+    "User ID": "12", 
+    "Weight": 1
+  }, 
+  "96": {
+    "Submit Time": 4279, 
+    "Priority": 1, 
+    "User ID": "3", 
+    "Weight": 1
+  }, 
+  "97": {
+    "Submit Time": 4327, 
+    "Priority": 1, 
+    "User ID": "6", 
+    "Weight": 1
+  }, 
+  "98": {
+    "Submit Time": 4459, 
+    "Priority": 1, 
+    "User ID": "17", 
+    "Weight": 1
+  }, 
+  "99": {
+    "Submit Time": 4552, 
+    "Priority": 1, 
+    "User ID": "6", 
+    "Weight": 1
   }
 }
