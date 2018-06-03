@@ -6,6 +6,7 @@
 
 __pycache__/
 
+*2018*.json
 *fair*.json
 *.txt
 *.log
