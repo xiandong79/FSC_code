@@ -10,14 +10,16 @@ from MTTC.MTTC import MTTC
 from datetime import datetime
 import copy
 
-np.random.seed(52)
+print(":")
+
+np.random.seed(5552)
 
 """
 The basic configuration of each simulation
 """
 user_number = 10
 machine_number = 10
-num_core = 200
+num_core = 1200
 
 """
 customize part of input data:
@@ -28,16 +30,36 @@ preference_value = np.random.random((user_number, machine_number))
 # print("preference_value: ", preference_value)
 
 # add 'hard constrait probability' in preference value
+threshold = np.random.random(user_number)
 probability = np.random.random((user_number, machine_number))
-# 50% to be hard constraint
-preference_value[probability <= 0.5] = 0
-# print("preference_value+hard_constraint: ", preference_value)
+for i in range(user_number):
+    for j in range(machine_number):
+        if probability[i][j] <= threshold[i]:
+            preference_value[i][j] = 0
+
+for i in range(user_number):
+    if np.max(preference_value[i]) == 0:
+        index = np.random.random_integers(0, machine_number - 1)
+        preference_value[i][index] = 1
 
 largest_one_per_row = np.amax(preference_value, axis=1)
-
 normalized_preference_value = preference_value / largest_one_per_row[:, None]
-# print("normalized_preference_value: ", normalized_preference_value)
+print("normalized_preference_value: ", normalized_preference_value)
 
+# analyze generated 'preference_value' result
+average_hard = 0
+for i in range(user_number):
+    for j in range(machine_number):
+        if normalized_preference_value[i][j] == 0:
+            average_hard += 1
+average_hard /= user_number
+print("The number of 'hard constraint' per user is: ", average_hard)
+print("pickiness of each user: ", np.sum(
+    normalized_preference_value, axis=1) / (machine_number))
+print("average pickiness of users: ", np.sum(
+    normalized_preference_value) / (user_number * machine_number))
+
+# preference_order parpared for 'MTTC'
 preference_order = []
 normalized_preference_value = np.array(normalized_preference_value)
 for a in normalized_preference_value:
@@ -47,7 +69,7 @@ for a in normalized_preference_value:
 # core_per_machine (a 1D list)
 core_per_machine = np.random.multinomial(
     num_core, [1 / float(machine_number)] * machine_number, size=1)[0]
-print("core_per_machine: ", core_per_machine)
+# print("core_per_machine: ", core_per_machine)
 
 # initial_ownership (a 2D list) - test successful
 random_ownership = np.empty([user_number, machine_number])
@@ -56,20 +78,20 @@ for i in range(machine_number):
         1 / float(user_number)] * user_number, size=1)
     for j in range(user_number):
         random_ownership[j][i] = tmp[0][j]
-print("random_generated_ownership: ", random_ownership)
+# print("random_generated_ownership: ", random_ownership)
 
 
 initial_ownership = copy.deepcopy(random_ownership)
-initial_ownership[preference_value == 0] = 0
+initial_ownership[normalized_preference_value == 0] = 0
 # print("initial_ownership: ", initial_ownership)
 w0_idle_resource = random_ownership - initial_ownership
 # print("w0_idle_resource: ", w0_idle_resource)
 w0_idle_resource_per_machine = np.sum(w0_idle_resource, axis=0)
 # print("w0_idle_resource_per_machine: ", w0_idle_resource_per_machine)
 
-for i in range(len(w0_idle_resource)):
+for i in range(len(w0_idle_resource_per_machine)):
     while w0_idle_resource_per_machine[i] > 0:
-        index = np.random.random_integers(1, user_number) - 1
+        index = np.random.random_integers(0, user_number - 1)
         if preference_value[index][i] != 0:
             w0_idle_resource_per_machine[i] -= 1
             initial_ownership[index][i] += 1
@@ -84,7 +106,7 @@ start_time = datetime.now()
 mttc_allocation = MTTC(user_number, machine_number, preference_order,
                        initial_ownership).topTradingCycles()
 end_time = datetime.now()
-# print("mttc_allocation =", mttc_allocation)
+print("mttc_allocation =", mttc_allocation)
 
 """
 register the 'Path' of input data (job.json, stage.json, runtime.json)
@@ -98,72 +120,30 @@ Run this simulation with initial_ownership
 machines = [Machine(i, core_per_machine[i]) for i in range(0, machine_number)]
 users = [User(i, initial_ownership[i], preference_value[i])
          for i in range(user_number)]
-cluster = Cluster(machines, users)
+cluster = Cluster(machines, users, num_core)
 simulator = Simulator(cluster, preference_value,
-                      json_dir, user_number, flag="initial")
+                      json_dir, user_number, flag="Initial")
 
-cluster.total_num_core = 100
 cluster.totalJobNumber = 100
 simulator.scheduler.scheduler_type = "isolated"
+simulator.run()
 
-# simulator.run()
-print("finish")
 
 """
-Run this simulation with Delay Scheduling
+Run this simulation with Choosy + DS scheduling
 """
+
+
 machines = [Machine(i, core_per_machine[i]) for i in range(0, machine_number)]
 users = [User(i, initial_ownership[i], preference_value[i])
          for i in range(user_number)]
-cluster = Cluster(machines, users)
+cluster = Cluster(machines, users, num_core)
 simulator = Simulator(cluster, preference_value,
-                      json_dir, user_number, flag="DelaySched")
+                      json_dir, user_number, flag="Choosy")
 
-cluster.total_num_core = 100
 cluster.totalJobNumber = 100
-simulator.scheduler.scheduler_type = "DelaySched"
-simulator.time_out = 100
-
-# simulator.run()
-print("finish")
-
-
-"""
-Run this simulation with initial_ownership but if abandon the machines if normalized_preference_value <= 0.3.  And receive the Choosy_idle_resource
-"""
-
-Choosy_ownership = copy.deepcopy(initial_ownership)
-Choosy_ownership[normalized_preference_value <= 0.2] = 0
-print("Choosy_ownership:", Choosy_ownership)
-# initial_ownership but if normalized_preference_value <= threshold, initial_ownership = 0.
-current_resource = np.sum(Choosy_ownership, axis=0)
-idle_resource = core_per_machine - current_resource
-print("idle_resource_per_machine: ", idle_resource)
-
-Choosy_ownership[Choosy_ownership == 0] = num_core
-print("Choosy_ownership:", Choosy_ownership)
-
-for i in range(len(idle_resource)):
-    while idle_resource[i] > 0:
-        Choosy_ownership[np.argmin(
-            Choosy_ownership, axis=0)[i]][i] += 1
-        idle_resource[i] -= 1
-Choosy_ownership[Choosy_ownership >= num_core] -= num_core
-print("Choosy+MMF_idle_: ", Choosy_ownership)
-
-machines = [Machine(i, core_per_machine[i]) for i in range(0, machine_number)]
-users = [User(i, Choosy_ownership[i], preference_value[i])
-         for i in range(user_number)]
-cluster = Cluster(machines, users)
-simulator = Simulator(cluster, preference_value,
-                      json_dir, user_number, flag="Choosy+MMF_idle_")
-
-cluster.total_num_core = 100
-cluster.totalJobNumber = 100
-simulator.scheduler.scheduler_type = "isolated"
-
+simulator.scheduler.scheduler_type = "DS"
 simulator.run()
-print("finish")
 
 """
 Run this simulation with mttc_allocation
@@ -171,17 +151,14 @@ Run this simulation with mttc_allocation
 machines = [Machine(i, core_per_machine[i]) for i in range(0, machine_number)]
 users = [User(i, mttc_allocation[i], preference_value[i])
          for i in range(user_number)]
-cluster = Cluster(machines, users)
+cluster = Cluster(machines, users, num_core)
 simulator = Simulator(cluster, preference_value,
                       json_dir, user_number, flag="MTTC")
 
 
-cluster.total_num_core = 100
 cluster.totalJobNumber = 100
 simulator.scheduler.scheduler_type = "isolated"
-
-# simulator.run()
-print("finish")
+simulator.run()
 
 """
 Run this simulation with mttc_allocation and online delay scheduling
@@ -189,16 +166,14 @@ Run this simulation with mttc_allocation and online delay scheduling
 machines = [Machine(i, core_per_machine[i]) for i in range(0, machine_number)]
 users = [User(i, mttc_allocation[i], preference_value[i])
          for i in range(user_number)]
-cluster = Cluster(machines, users)
+cluster = Cluster(machines, users, num_core)
 simulator = Simulator(cluster, preference_value,
                       json_dir, user_number, flag="MTTC")
 
 
-cluster.total_num_core = 100
 cluster.totalJobNumber = 100
-simulator.scheduler.scheduler_type = "MTTC+DS"
+simulator.scheduler.scheduler_type = "DS"
+simulator.run()
 
-# simulator.run()
-print("finish")
 print("The overhead of MTTC is: ", end_time - start_time)
-print("All 6 simulation finish")
+print("All 4 simulation finish")

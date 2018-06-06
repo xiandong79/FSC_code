@@ -30,4 +30,4 @@ normalized_preference_value = np.array(normalized_preference_value)
 for a in normalized_preference_value:
     preference_order.append(a.argsort()[::-1].tolist())
 
-print preference_order
+# print preference_order

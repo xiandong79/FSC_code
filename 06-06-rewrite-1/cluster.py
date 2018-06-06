@@ -7,23 +7,35 @@ DEBUG = False
 
 class Cluster:
 
-    def __init__(self, machines, users):
+    def __init__(self, machines, users, num_core):
         self.machine_number = len(machines)
         self.machines = machines
         self.users = users  # add by xiandong
         self.user_number = len(users)
-        self.total_num_core = 0
+        self.total_num_core = num_core
         self.running_jobs = list()
         self.finished_jobs = list()
         self.is_vacant = True
-        self.vacant_machine_list = set(
-            range(self.machine_number))  # 'int' in the list
+        self.vacant_machine_list = range(
+            self.machine_number)  # 'int' in the list
+        # set() is change to list () by xiandong
 
         self.isDebug = False
         self.totalJobNumber = 0
 
-    def make_offers(self):
-        # return the available resources to the framework scheduler
+    def make_offers(self, user_id):
+        """"return the available resources to the framework scheduler
+            # added by xiandong. we provide 'best' available machine for each task
+        """
+        # [x for _,x in sorted(zip(Y,X))]
+        # Sorting list based on values from another list
+        self.vacant_machine_list = list(set(self.vacant_machine_list))
+        machine_pv = list()
+        for machineId in self.vacant_machine_list:
+            machine_pv.append(
+                self.users[user_id].preference_value[machineId])
+        self.vacant_machine_list = [
+            x for _, x in sorted(zip(machine_pv, self.vacant_machine_list), reverse=True)]
         return self.vacant_machine_list
 
     def assign_task(self, machineId, task, time):
@@ -43,8 +55,8 @@ class Cluster:
         task.stage.job.alloc += 1
         if task.stage.job.alloc == 1:
             task.stage.job.start_execution_time = time
-        print("time ", time, "user_id", task.stage.job.user_id, "user.alloc increase to ",
-              self.users[task.stage.job.user_id].alloc, "job_id ", task.stage.job.id, "job.alloc increase to", task.stage.job.alloc)
+        # print("time ", time, "user_id", task.stage.job.user_id, "user.alloc increase to ",
+        #       self.users[task.stage.job.user_id].alloc, "job_id ", task.stage.job.id, "job.alloc increase to", task.stage.job.alloc)
         self.check_if_vacant()
 
     def search_job_by_id(self, job_id):  # job_id contains user id
@@ -71,7 +83,7 @@ class Cluster:
                 core.running_task = None
                 core.is_running = False
         running_machine.is_vacant = True
-        self.vacant_machine_list.add(running_machine_id)
+        self.vacant_machine_list.append(running_machine_id)
         self.is_vacant = True
 
     def reset(self):

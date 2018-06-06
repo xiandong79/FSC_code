@@ -32,7 +32,7 @@ class Simulator:
         self.job_durations = {}
         self.stage_durations = {}
         self.job_execution_profile = {}  # record the execution information of jobs
-        self.time_out = 1  # added for delay scheduling
+        self.time_out = 3  # added for delay scheduling
         self.threshold = 0.8
         self.threshold_step = 0.2
 
@@ -135,8 +135,8 @@ class Simulator:
                     msg = self.scheduler.do_allocate(event.time)
                 for item in msg:
                     new_events.append(EventTaskSubmit(event.time, item[0]))
-                    print("original task.runtime: ", item[0].runtime, "preference_value: ", self.preference_value[event.task.stage.job.user_id][event.task.machine_id], "task.runtime revised:", item[0].runtime /
-                          self.preference_value[event.task.stage.job.user_id][event.task.machine_id])
+                    # print("original task.runtime: ", item[0].runtime, "preference_value: ", self.preference_value[event.task.stage.job.user_id][event.task.machine_id], "task.runtime revised:", item[0].runtime /
+                    #       self.preference_value[event.task.stage.job.user_id][event.task.machine_id])
                     # new_events.append(EventTaskComplete(
                     #     event.time + item[0].runtime, item[0], item[1]))
                     # revised by xiandong
@@ -168,8 +168,8 @@ class Simulator:
                 event.job.duration = event.time - event.job.submit_time
                 event.job.queueing_delay = event.job.start_execution_time - event.job.submit_time
                 event.job.execution_time = event.time - event.job.start_execution_time
-                print("time: ", event.time, "-job.user_id", event.job.user_id, "-job.id", event.job.id, " -job.duration",
-                      event.job.duration, " -job.alloc ", event.job.alloc)
+                # print("time: ", event.time, "-job.user_id", event.job.user_id, "-job.id", event.job.id, " -job.duration",
+                #       event.job.duration, " -job.alloc ", event.job.alloc)
                 self.scheduler.handle_job_completion(event.job)
                 self.job_durations[int(event.job.id.split(
                     "_")[-1])] = event.job.duration
@@ -180,19 +180,13 @@ class Simulator:
                 self.job_execution_profile[event.job.user_id][job_id]["queueing_delay"] = event.job.queueing_delay
                 self.job_execution_profile[event.job.user_id][job_id]["execution_time"] = event.job.execution_time
                 # self.job_execution_profile[job_id]["runtimes"] = [[i.runtime, i.machine_id, i.start_time, i.finish_time] for i in event.job.stages[0].taskset]
-                if self.scheduler.scheduler_type == "isolated":
-                    self.job_execution_profile[event.job.user_id][job_id]["fair_alloc"] = event.job.fairAlloc
-                    self.job_execution_profile[event.job.user_id][job_id]["target_alloc"] = event.job.targetAlloc
-                else:
-                    self.job_execution_profile[event.job.user_id][job_id]["fair_alloc"] = event.job.alloc
-                    self.job_execution_profile[event.job.user_id][job_id]["target_alloc"] = event.job.alloc
                 self.job_execution_profile[event.job.user_id][job_id]["alloc"] = event.job.alloc
 
             for new_event in new_events:
                 self.event_queue.put(new_event)
 
-        fname = "ExecutionResult/" + str(self.cluster.user_number) + "U_" + str(
-            self.cluster.machine_number) + "M_" + str(self.cluster.total_num_core) + "C_" + self.scheduler.scheduler_type + "_" + self.flag + "_" + time.strftime("%Y%m%d-%H%M%S") + ".json"
+        fname = "ExecutionResult/" + time.strftime("%Y%m%d-%H%M%S") + "_" + str(self.cluster.user_number) + "U_" + str(
+            self.cluster.machine_number) + "M_" + str(self.cluster.total_num_core) + "C_" + self.scheduler.scheduler_type + "_" + self.flag + ".json"
         f = open(fname, 'w')
         json.dump(self.job_execution_profile, f, indent=2, sort_keys=True)
         f.close()
@@ -246,12 +240,8 @@ class Simulator:
                     max_time = runtime
                 Task_id = 'user_%s_task_%s' % (user_id, task_id)
                 # self.time_out = 100 by xiandong
-                if timeout_type == 0:
-                    task = Task(Job_id, Stage_id, Task_id, i,
-                                runtime, self.time_out, job_priority[job_id], self.threshold, self.threshold_step)
-                else:
-                    task = Task(Job_id, Stage_id, Task_id, i,
-                                runtime, self.time_out, job_priority[job_id], self.threshold, self.threshold_step)
+                task = Task(Job_id, Stage_id, Task_id, i,
+                            runtime, self.time_out, job_priority[job_id], self.threshold, self.threshold_step)
                 task_id += 1
                 task.user_id = user_id
                 taskset.append(task)

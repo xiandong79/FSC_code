@@ -2,7 +2,7 @@ from stage import Stage
 
 
 class Task:
-    def __init__(self, job_id, stage_id, id, index, runtime, timeout, priority=0, threshold=0.8, threshold_step=0.2):
+    def __init__(self, job_id, stage_id, id, index, runtime, timeout=3, priority=1, threshold=0.8, threshold_step=0.2):
         self.runtime = runtime  # runtime when the input data is read from memory
         self.stage_id = stage_id
         self.job_id = job_id

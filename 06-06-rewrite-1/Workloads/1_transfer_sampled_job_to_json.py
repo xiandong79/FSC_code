@@ -32,7 +32,7 @@ for i in range(100):
     job_id = i
     submitTime = int(tmp[2])
     job_profile[job_id] = {}
-    job_profile[job_id]["Submit Time"] = int(submitTime / 100)
+    job_profile[job_id]["Submit Time"] = int(submitTime / 20)
     job_profile[job_id]["User ID"] = tmp[1]
     job_profile[job_id]["Priority"] = 1
     job_profile[job_id]["Weight"] = 1

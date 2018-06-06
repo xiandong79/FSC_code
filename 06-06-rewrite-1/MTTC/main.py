@@ -13,8 +13,8 @@ initialOwnership = [[20, 0], [0, 20]]
 mttc_allocation = MTTC(user_number, machine_number, agentPreferences,
                        initialOwnership).topTradingCycles()
 
-print("initialOwnership =", initialOwnership)
-print("mttc_allocation =", mttc_allocation)
+# print("initialOwnership =", initialOwnership)
+# print("mttc_allocation =", mttc_allocation)
 
 # ('initialOwnership =', [[20, 0], [0, 20]])
 # ('mttc_allocation =', [[0.0, 20.0], [20.0, 0.0]])
